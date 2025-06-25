@@ -204,7 +204,7 @@ footer {
 .botao_teste_calendario {
   background-color: #ffdd57; /* Cor de fundo amarela similar ao botão de cadastro */
   color: #5d0075; /* Cor do texto roxa */
-  padding: 10px 20px;
+  padding: 30px;
   border-radius: 20px; /* Bordas arredondadas */
   text-decoration: none; /* Remove sublinhado */
   font-weight: bold;
