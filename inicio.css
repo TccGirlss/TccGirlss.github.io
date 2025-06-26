@@ -73,6 +73,17 @@ nav a:hover::after {
     background-color: #8160d3;
 }
 
+.botao_teste_calendario {
+  background-color: #a276c8;
+  color: white;
+  padding: 8px 15px;
+  text-decoration: none;
+  border-radius: 3px;
+}
+.botao_teste_calendario:hover {
+    background-color: #8160d3;
+}
+
 main {
   margin-top: 80px;
 }
