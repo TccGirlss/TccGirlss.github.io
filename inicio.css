@@ -73,6 +73,17 @@ nav a:hover::after {
     background-color: #8160d3;
 }
 
+.botao_teste_calendario {
+  background-color: #a276c8;
+  color: white;
+  padding: 8px 15px;
+  text-decoration: none;
+  border-radius: 3px;
+}
+.botao_teste_calendario:hover {
+    background-color: #8160d3;
+}
+
 main {
   margin-top: 80px;
 }
@@ -198,36 +209,4 @@ footer {
 .bola:hover {
   background-color: #8160d3;
   color: white;
-}
-
-/* Estilo para o novo botão "Teste Calendário" */
-.botao_teste_calendario {
-  background-color: #ffdd57; /* Cor de fundo amarela similar ao botão de cadastro */
-  color: #5d0075; /* Cor do texto roxa */
-  padding: 30px;
-  border-radius: 20px; /* Bordas arredondadas */
-  text-decoration: none; /* Remove sublinhado */
-  font-weight: bold;
-  transition: background-color 0.3s ease; /* Transição suave para hover */
-  white-space: nowrap; /* Evita que o texto quebre em várias linhas */
-  margin-left: 15px; /* Espaçamento à esquerda para separá-lo do menu */
-}
-
-.botao_teste_calendario:hover {
-  background-color: #ffe77a; /* Cor mais clara no hover */
-}
-
-/* Ajustes no header para acomodar o novo botão, se necessário */
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 5%; /* Ajuste o padding conforme o design do seu cabeçalho */
-  background-color: #ffffff; /* Exemplo: se o header tiver cor de fundo */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Sombra para destacar */
-}
-
-/* Se o .botao_entrar e .botao_teste_calendario estiverem lado a lado, pode ajustar o espaçamento entre eles */
-header .botao_entrar {
-    margin-left: 15px; /* Adiciona um espaço entre o botão Teste Calendário e o Entrar */
 }
