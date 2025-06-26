@@ -1,6 +1,6 @@
 !function() {
 
-  var today = moment();
+  var today = moment(); // Obtém o dia atual
 
   function Calendar(selector, events) {
     this.el = document.querySelector(selector);
@@ -156,7 +156,7 @@
     var number = createElement('div', 'day-number', day.format('DD'));
 
     var eventsDisplay = createElement('div', 'day-events');
-    this.drawEvents(day, eventsDisplay); // Renomeei a variável para evitar conflito
+    this.drawEvents(day, eventsDisplay);
 
     outer.appendChild(name);
     outer.appendChild(number);
@@ -231,22 +231,20 @@
     }
 
     var todaysEvents = this.events.reduce(function(memo, ev) {
-      if(ev.date.isSame(day, 'day') && ev.type !== 'menstruation_period') { // Não mostra eventos de período menstrual aqui
+      if(ev.date.isSame(day, 'day') && ev.type !== 'menstruation_period') {
         memo.push(ev);
       }
       return memo;
     }, []);
 
-    // Adiciona o nome do evento "Período Menstrual" se for o início ou fim
     this.events.forEach(function(ev) {
       if (ev.type === 'menstruation_period') {
         var endDate = ev.date.clone().add(ev.duration - 1, 'days');
         if (day.isSame(ev.date, 'day')) {
           todaysEvents.push({ eventName: 'Início Menstruação', color: 'purple' });
         } else if (day.isSame(endDate, 'day')) {
-          todaysEvents.push({ eventName: 'Fim Menstruação(previsão)', color: 'purple' });
+          todaysEvents.push({ eventName: 'Fim Menstruação', color: 'purple' });
         } else if (day.isSameOrAfter(ev.date, 'day') && day.isSameOrBefore(endDate, 'day')) {
-          // Mostra apenas o texto "Período Menstrual" para os dias do meio
           todaysEvents.push({ eventName: 'Período Menstrual', color: 'no_display_color' });
         }
       }
@@ -256,7 +254,6 @@
 
     arrow.style.left = el.offsetLeft - el.parentNode.offsetLeft + 27 + 'px';
 
-    // Wrapper para os botões para alinhamento
     var buttonWrapper = createElement('div', 'details-buttons');
     var self = this;
 
@@ -272,6 +269,18 @@
     };
     buttonWrapper.appendChild(addMenstruationBtn);
 
+    // Lógica para ocultar botões em datas futuras
+    if (day.isAfter(moment(), 'day')) { // Compara com o 'today' global
+        addRecordBtn.style.display = 'none';
+        addMenstruationBtn.style.display = 'none';
+        var futureDateMessage = createElement('p', 'future-date-message', 'Não é possível adicionar registros para datas futuras.');
+        buttonWrapper.appendChild(futureDateMessage);
+    } else {
+        addRecordBtn.style.display = 'block'; // Garante que estejam visíveis para datas passadas/atuais
+        addMenstruationBtn.style.display = 'block';
+    }
+
+
     details.appendChild(buttonWrapper);
   }
 
@@ -282,7 +291,7 @@
     events.forEach(function(ev) {
       var div = createElement('div', 'event');
       var square = createElement('div', 'event-category ' + ev.color);
-      
+
       var spanText = '';
       if (ev.symptoms || ev.medication) {
         spanText = (ev.symptoms ? 'Sintomas: ' + ev.symptoms : '') +
@@ -294,7 +303,6 @@
 
       var span = createElement('span', '', spanText);
 
-      // Não exibe o quadrado de cor para eventos "no_display_color" (dias do meio da menstruação)
       if (ev.color !== 'no_display_color') {
         div.appendChild(square);
       }
@@ -336,10 +344,17 @@
     var medication = this.medicationInput.value;
 
     if (this.selectedDate) {
+      var selectedMomentDate = moment(this.selectedDate, "YYYY-MM-DD");
+      if (selectedMomentDate.isAfter(moment(), 'day')) {
+        alert("Não é possível adicionar registros diários para datas futuras.");
+        this.closeModal();
+        return;
+      }
+
       this.addEvent({
         eventName: 'Registro Diário',
         calendar: 'Saúde',
-        color: 'blue', // Marcador azul para registros diários
+        color: 'blue',
         date: this.selectedDate,
         symptoms: symptoms,
         medication: medication
@@ -352,13 +367,18 @@
 
   Calendar.prototype.registerMenstruation = function() {
     if (this.selectedDate) {
-      // Adiciona um único evento que representa o período menstrual
+      var selectedMomentDate = moment(this.selectedDate, "YYYY-MM-DD");
+      if (selectedMomentDate.isAfter(moment(), 'day')) {
+        alert("Não é possível registrar menstruação para datas futuras.");
+        return;
+      }
+
       this.addEvent({
         eventName: 'Período Menstrual',
-        color: 'purple', // Cor principal do marcador
+        color: 'purple',
         date: this.selectedDate,
-        type: 'menstruation_period', // Novo tipo para identificar o período
-        duration: 5 // Duração do período em dias
+        type: 'menstruation_period',
+        duration: 5
       });
     } else {
       alert("Por favor, selecione um dia para registrar a menstruação.");
@@ -385,7 +405,7 @@
       date: moment(event.date, "YYYY-MM-DD"),
       symptoms: event.symptoms || '',
       medication: event.medication || '',
-      type: event.type || 'daily_record', // Tipo padrão
+      type: event.type || 'daily_record',
       duration: event.duration || 0
     });
     this.draw();
