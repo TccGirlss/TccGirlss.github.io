@@ -61,26 +61,20 @@ nav a:hover::after {
   left: 0;
   bottom: -4px;
 }
+.botao a {
+  padding: 6px 10px;
+}
 
-.botao_entrar {
+.botao_entrar,
+.botao_calendario{
   background-color: #a276c8;
   color: white;
   padding: 8px 15px;
   text-decoration: none;
   border-radius: 3px;
 }
-.botao_entrar:hover {
-    background-color: #8160d3;
-}
-
-.botao_teste_calendario {
-  background-color: #a276c8;
-  color: white;
-  padding: 8px 15px;
-  text-decoration: none;
-  border-radius: 3px;
-}
-.botao_teste_calendario:hover {
+.botao_entrar:hover,
+.botao_calendario:hover {
     background-color: #8160d3;
 }
 
@@ -209,4 +203,40 @@ footer {
 .bola:hover {
   background-color: #8160d3;
   color: white;
+}
+
+
+@media (max-width: 890px) {
+  header {
+    align-items: center;
+    gap: 10px;
+    padding: 15px 20px;
+  }
+
+  .menu {
+    width: 100%;
+    gap: 5px;
+  }
+
+  .botao {
+    align-items: center;
+    margin-top: 10px;
+  }
+  .botao_calendario{
+    display: none;
+  }
+
+  .conteudo h1 {
+    font-size: 32px;
+  }
+
+  .conteudo p {
+    font-size: 16px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+  }
+
 }
