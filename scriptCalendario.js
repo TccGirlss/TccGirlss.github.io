@@ -243,7 +243,7 @@
         if (day.isSame(ev.date, 'day')) {
           todaysEvents.push({ eventName: 'Início Menstruação', color: 'purple' });
         } else if (day.isSame(endDate, 'day')) {
-          todaysEvents.push({ eventName: 'Fim Menstruação', color: 'purple' });
+          todaysEvents.push({ eventName: 'Fim Menstruação (previsão)', color: 'purple' });
         } else if (day.isSameOrAfter(ev.date, 'day') && day.isSameOrBefore(endDate, 'day')) {
           todaysEvents.push({ eventName: 'Período Menstrual', color: 'no_display_color' });
         }
