@@ -1,6 +1,6 @@
 !function() {
 
-  var today = moment(); // Obtém o dia atual
+  var today = moment();
 
   function Calendar(selector, events) {
     this.el = document.querySelector(selector);
@@ -17,8 +17,8 @@
     this.modal = document.getElementById('eventModal');
     this.closeButton = this.modal.querySelector('.close-button');
     this.saveButton = this.modal.querySelector('#saveDailyRecord');
-    this.symptomsInput = this.modal.querySelector('#symptomsInput'); // Novo input
-    this.medicationInput = this.modal.querySelector('#medicationInput'); // Novo input
+    this.symptomsInput = this.modal.querySelector('#symptomsInput');
+    this.medicationInput = this.modal.querySelector('#medicationInput');
     this.selectedDate = null;
 
     var self = this;
@@ -46,8 +46,6 @@
     var self = this;
     if(!this.header) {
       this.header = createElement('div', 'header');
-      this.header.className = 'header';
-
       this.title = createElement('h1');
 
       var right = createElement('div', 'right');
@@ -61,45 +59,27 @@
       this.header.appendChild(left);
       this.el.appendChild(this.header);
     }
-
-    this.title.innerHTML = this.current.format('MMMMYYYY');
+    this.title.innerHTML = this.current.format('MMMM YYYY');
   }
 
   Calendar.prototype.drawMonth = function() {
     var self = this;
-
-    if(this.month) {
-      this.oldMonth = this.month;
-      this.oldMonth.className = 'month out ' + (self.next ? 'next' : 'prev');
-      this.oldMonth.addEventListener('webkitAnimationEnd', function() {
-        self.oldMonth.parentNode.removeChild(self.oldMonth);
-        self.month = createElement('div', 'month');
-        self.backFill();
-        self.currentMonth();
-        self.fowardFill();
-        self.el.appendChild(self.month);
-        window.setTimeout(function() {
-          self.month.className = 'month in ' + (self.next ? 'next' : 'prev');
-        }, 16);
-      });
-    } else {
-        this.month = createElement('div', 'month');
-        this.el.appendChild(this.month);
-        this.backFill();
-        this.currentMonth();
-        this.fowardFill();
-        this.month.className = 'month new';
+    if (this.month) {
+      this.month.remove();
     }
+    
+    this.month = createElement('div', 'month');
+    this.el.appendChild(this.month);
+    this.backFill();
+    this.currentMonth();
+    this.fowardFill();
   }
 
   Calendar.prototype.backFill = function() {
     var clone = this.current.clone();
     var dayOfWeek = clone.day();
-
-    if(!dayOfWeek) { return; }
-
+    if(!dayOfWeek) return;
     clone.subtract(dayOfWeek + 1, 'days');
-
     for(var i = dayOfWeek; i > 0 ; i--) {
       this.drawDay(clone.add(1, 'days'));
     }
@@ -108,9 +88,7 @@
   Calendar.prototype.fowardFill = function() {
     var clone = this.current.clone().add(1, 'months').subtract(1, 'days');
     var dayOfWeek = clone.day();
-
-    if(dayOfWeek === 6) { return; }
-
+    if(dayOfWeek === 6) return;
     for(var i = dayOfWeek; i < 6 ; i++) {
       this.drawDay(clone.add(1, 'days'));
     }
@@ -118,7 +96,6 @@
 
   Calendar.prototype.currentMonth = function() {
     var clone = this.current.clone();
-
     while(clone.month() === this.current.month()) {
       this.drawDay(clone);
       clone.add(1, 'days');
@@ -138,12 +115,11 @@
 
     var outer = createElement('div', this.getDayClass(day));
 
-    // Lógica para adicionar círculo branco para dias de menstruação
     this.events.forEach(function(ev) {
       if (ev.type === 'menstruation_period') {
         var endDate = ev.date.clone().add(ev.duration - 1, 'days');
         if (day.isSameOrAfter(ev.date, 'day') && day.isSameOrBefore(endDate, 'day')) {
-          outer.classList.add('circled-day');
+          outer.classList.add('menstrual-period');
         }
       }
     });
@@ -166,28 +142,23 @@
 
   Calendar.prototype.drawEvents = function(day, element) {
     if(day.month() === this.current.month()) {
-      var todaysEvents = this.events.reduce(function(memo, ev) {
-        // EXCLUSÃO AQUI: Exclua 'menstruation_period' da lista inicial para evitar duplicidade.
-        if(ev.date.isSame(day, 'day') && ev.type !== 'menstruation_period') {
-          memo.push(ev);
-        }
-        return memo;
-      }, []);
-
-      // Adiciona marcadores de menstruação ao início e fim do período
-      this.events.forEach(function(ev) {
-        if (ev.type === 'menstruation_period') {
-          var endDate = ev.date.clone().add(ev.duration - 1, 'days');
-          // Adiciona um evento temporário para o marcador roxo APENAS se for o dia de início ou fim
-          if (day.isSame(ev.date, 'day') || day.isSame(endDate, 'day')) {
-            todaysEvents.push({ eventName: ev.eventName, color: 'purple', isMenstruationMarker: true });
-          }
-        }
+      var dailyRecords = this.events.filter(ev => ev.type === 'daily_record' && ev.date.isSame(day, 'day'));
+      var menstruationStarts = this.events.filter(ev => ev.type === 'menstruation_period' && ev.date.isSame(day, 'day'));
+      var menstruationEnds = this.events.filter(ev => ev.type === 'menstruation_period' && day.isSame(ev.date.clone().add(ev.duration - 1, 'days'), 'day'));
+      
+      menstruationStarts.forEach(() => {
+        var evSpan = createElement('span', 'purple');
+        element.appendChild(evSpan);
       });
 
-      todaysEvents.forEach(function(ev) {
-        var evSpan = createElement('span', ev.color);
+      menstruationEnds.forEach(() => {
+        var evSpan = createElement('span', 'green');
         element.appendChild(evSpan);
+      });
+
+      dailyRecords.forEach(ev => {
+          var evSpan = createElement('span', ev.color);
+          element.appendChild(evSpan);
       });
     }
   }
@@ -203,32 +174,28 @@
   }
 
   Calendar.prototype.openDay = function(el) {
-    var details, arrow;
+    document.querySelectorAll('.day.selected-day').forEach(d => d.classList.remove('selected-day'));
+    el.classList.add('selected-day');
+
+    var details;
     var dayNumber = +el.querySelectorAll('.day-number')[0].innerText || +el.querySelectorAll('.day-number')[0].textContent;
     var day = this.current.clone().date(dayNumber);
     this.selectedDate = day.format("YYYY-MM-DD");
 
     var currentOpened = document.querySelector('.details');
-
-    if(currentOpened && currentOpened.parentNode === el.parentNode) {
-      details = currentOpened;
-      arrow = document.querySelector('.arrow');
-      details.innerHTML = '';
-      details.appendChild(arrow);
-    } else {
-      if(currentOpened) {
-        currentOpened.addEventListener('animationend', function() {
-          currentOpened.parentNode.removeChild(currentOpened);
-        });
-        currentOpened.className = 'details out';
-      }
-
-      details = createElement('div', 'details in');
-      arrow = createElement('div', 'arrow');
-
-      details.appendChild(arrow);
-      el.parentNode.appendChild(details);
+    if(currentOpened) {
+      currentOpened.parentNode.removeChild(currentOpened);
     }
+    
+    details = createElement('div', 'details in');
+    el.parentNode.appendChild(details);
+
+    var closeBtn = createElement('span', 'details-close', '×');
+    closeBtn.onclick = function() {
+        details.parentNode.removeChild(details);
+        el.classList.remove('selected-day');
+    };
+    details.appendChild(closeBtn);
 
     var todaysEvents = this.events.reduce(function(memo, ev) {
       if(ev.date.isSame(day, 'day') && ev.type !== 'menstruation_period') {
@@ -241,45 +208,34 @@
       if (ev.type === 'menstruation_period') {
         var endDate = ev.date.clone().add(ev.duration - 1, 'days');
         if (day.isSame(ev.date, 'day')) {
-          todaysEvents.push({ eventName: 'Início Menstruação', color: 'purple' });
+          todaysEvents.push({ eventName: 'Início Menstruação', color: 'purple', type: 'menstruation_period' });
         } else if (day.isSame(endDate, 'day')) {
-          todaysEvents.push({ eventName: 'Fim Menstruação (previsão)', color: 'purple' });
+          todaysEvents.push({ eventName: 'Fim Menstruação (previsão)', color: 'green', type: 'menstruation_period' });
         } else if (day.isSameOrAfter(ev.date, 'day') && day.isSameOrBefore(endDate, 'day')) {
-          todaysEvents.push({ eventName: 'Período Menstrual', color: 'no_display_color' });
+          todaysEvents.push({ eventName: 'Período Menstrual', color: 'no_display_color', type: 'menstruation_period' });
         }
       }
     });
 
     this.renderEvents(todaysEvents, details);
 
-    arrow.style.left = el.offsetLeft - el.parentNode.offsetLeft + 27 + 'px';
-
     var buttonWrapper = createElement('div', 'details-buttons');
     var self = this;
 
     var addRecordBtn = createElement('button', 'add-event-button', 'Adicionar Registro Diário');
-    addRecordBtn.onclick = function() {
-      self.openModal();
-    };
+    addRecordBtn.onclick = function() { self.openModal(); };
     buttonWrapper.appendChild(addRecordBtn);
 
     var addMenstruationBtn = createElement('button', 'add-menstruation-button', 'Registrar Menstruação');
-    addMenstruationBtn.onclick = function() {
-      self.registerMenstruation();
-    };
+    addMenstruationBtn.onclick = function() { self.registerMenstruation(); };
     buttonWrapper.appendChild(addMenstruationBtn);
 
-    // Lógica para ocultar botões em datas futuras
-    if (day.isAfter(moment(), 'day')) { // Compara com o 'today' global
-        addRecordBtn.style.display = 'none';
-        addMenstruationBtn.style.display = 'none';
-        var futureDateMessage = createElement('p', 'future-date-message', 'Não é possível adicionar registros para datas futuras.');
-        buttonWrapper.appendChild(futureDateMessage);
-    } else {
-        addRecordBtn.style.display = 'block'; // Garante que estejam visíveis para datas passadas/atuais
-        addMenstruationBtn.style.display = 'block';
+    if (day.isAfter(moment(), 'day')) {
+      addRecordBtn.style.display = 'none';
+      addMenstruationBtn.style.display = 'none';
+      var futureDateMessage = createElement('p', 'future-date-message', 'Não é possível adicionar registros para datas futuras.');
+      buttonWrapper.appendChild(futureDateMessage);
     }
-
 
     details.appendChild(buttonWrapper);
   }
@@ -287,21 +243,22 @@
   Calendar.prototype.renderEvents = function(events, ele) {
     var currentWrapper = ele.querySelector('.events');
     var wrapper = createElement('div', 'events in' + (currentWrapper ? ' new' : ''));
-
     events.forEach(function(ev) {
       var div = createElement('div', 'event');
       var square = createElement('div', 'event-category ' + ev.color);
+      let text = ev.eventName;
 
-      var spanText = '';
-      if (ev.symptoms || ev.medication) {
-        spanText = (ev.symptoms ? 'Sintomas: ' + ev.symptoms : '') +
-                   (ev.symptoms && ev.medication ? ', ' : '') +
-                   (ev.medication ? 'Medicamento: ' + ev.medication : '');
-      } else if (ev.eventName) {
-        spanText = ev.eventName;
+      if (ev.type === 'daily_record') {
+        text = `Sintomas: ${ev.symptoms || '-'}, Medicamento: ${ev.medication || '-'}`;
+      } else if (ev.type === 'menstruation_period' && ev.eventName === 'Início Menstruação') {
+        text = "Início da Menstruação";
+      } else if (ev.type === 'menstruation_period' && ev.eventName === 'Período Menstrual') {
+        text = "Período Menstrual";
+      } else if (ev.type === 'menstruation_period' && ev.eventName === 'Fim Menstruação (previsão)') {
+        text = "Fim da Menstruação";
       }
 
-      var span = createElement('span', '', spanText);
+      var span = createElement('span', '', text);
 
       if (ev.color !== 'no_display_color') {
         div.appendChild(square);
@@ -312,18 +269,13 @@
 
     if(!events.length) {
       var div = createElement('div', 'event empty');
-      var span = createElement('span', '', 'No Events');
-
+      var span = createElement('span', '', 'Sem eventos');
       div.appendChild(span);
       wrapper.appendChild(div);
     }
-
     if(currentWrapper) {
-      currentWrapper.className = 'events out';
-      currentWrapper.addEventListener('animationend', function() {
-        currentWrapper.parentNode.removeChild(currentWrapper);
-        ele.appendChild(wrapper);
-      });
+      currentWrapper.parentNode.removeChild(currentWrapper);
+      ele.appendChild(wrapper);
     } else {
       ele.appendChild(wrapper);
     }
@@ -340,8 +292,8 @@
   }
 
   Calendar.prototype.saveDailyRecord = function() {
-    var symptoms = this.symptomsInput.value;
-    var medication = this.medicationInput.value;
+    var symptoms = this.symptoms.value;
+    var medication = this.medication.value;
 
     if (this.selectedDate) {
       var selectedMomentDate = moment(this.selectedDate, "YYYY-MM-DD");
@@ -357,9 +309,14 @@
         color: 'blue',
         date: this.selectedDate,
         symptoms: symptoms,
-        medication: medication
+        medication: medication,
+        type: 'daily_record'
       });
       this.closeModal();
+      var dayElement = document.querySelector('.day.selected-day');
+      if (dayElement) {
+        this.openDay(dayElement);
+      }
     } else {
       alert("Por favor, selecione um dia no calendário primeiro.");
     }
@@ -372,14 +329,17 @@
         alert("Não é possível registrar menstruação para datas futuras.");
         return;
       }
-
       this.addEvent({
-        eventName: 'Período Menstrual',
+        eventName: 'Início Menstruação',
         color: 'purple',
         date: this.selectedDate,
         type: 'menstruation_period',
         duration: 5
       });
+      var dayElement = document.querySelector('.day.selected-day');
+      if (dayElement) {
+        this.openDay(dayElement);
+      }
     } else {
       alert("Por favor, selecione um dia para registrar a menstruação.");
     }
@@ -415,13 +375,8 @@
 
   function createElement(tagName, className, innerText) {
     var ele = document.createElement(tagName);
-    if(className) {
-      ele.className = className;
-    }
-    if(innerText) {
-      ele.innerText = ele.textContent = innerText;
-    }
+    if(className) ele.className = className;
+    if(innerText) ele.innerText = ele.textContent = innerText;
     return ele;
   }
-
 }();
