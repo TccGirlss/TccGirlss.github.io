@@ -7,16 +7,14 @@
   <link rel="stylesheet" href="styleCalendario.css">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
-
   <script defer src="scriptCalendario.js"></script>
 </head>
 <body>
   <div id="calendar">
     <div class="legend">
       <span class="entry purple">INÍCIO MENSTRUAÇÃO</span>
+      <span class="entry green">FIM MENSTRUAÇÃO</span>
       <span class="entry blue">REGISTRO DIÁRIO</span>
-      <!-- <span class="entry yellow">PERIODO 3</span>
-      <span class="entry green">Other</span> -->
     </div>
   </div>
 
@@ -33,7 +31,6 @@
   </div>
 
   <script>
-    // Inicialização do calendário
     window.addEventListener("DOMContentLoaded", function () {
       const calendar = new Calendar('#calendar', []);
     });
