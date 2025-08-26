@@ -292,8 +292,8 @@
   }
 
   Calendar.prototype.saveDailyRecord = function() {
-    var symptoms = this.symptoms.value;
-    var medication = this.medication.value;
+    var symptoms = this.symptomsInput.value;
+    var medication = this.medicationInput.value;
 
     if (this.selectedDate) {
       var selectedMomentDate = moment(this.selectedDate, "YYYY-MM-DD");
