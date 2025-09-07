@@ -7,6 +7,7 @@
 
 body {
     background: url('/img/fundo.png') no-repeat left center;
+    background-size: 1000px;
 }
 
 .container {
@@ -98,4 +99,5 @@ button:hover {
 ul {
     color: red;
     margin-bottom: 15px;
+
 }
