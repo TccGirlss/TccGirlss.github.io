@@ -2,6 +2,20 @@
 
   var today = moment();
 
+  // Mapeamento de sintomas → ícones
+  const SYMPTOM_ICONS = {
+    "Cólica": "🥴",
+    "Inchaço": "🤰",
+    "Náusea": "🤢",
+    "Dor de cabeça": "🤕",
+    "Indisposição": "🔋",
+    "Dores musculares": "💪",
+    "Alteração de humor": "😡",
+    "Acne": "🍔",
+    "Diarreia": "🚽",
+    "Aumento na frequência urinária": "🚻"
+  };
+
   function Calendar(selector, events) {
     this.el = document.querySelector(selector);
     this.events = events;
@@ -17,7 +31,7 @@
     this.modal = document.getElementById('eventModal');
     this.closeButton = this.modal.querySelector('.close-button');
     this.saveButton = this.modal.querySelector('#saveDailyRecord');
-    this.symptomsInput = this.modal.querySelector('#symptomsInput');
+    this.symptomsList = this.modal.querySelector('#symptomsList');
     this.medicationInput = this.modal.querySelector('#medicationInput');
     this.selectedDate = null;
 
@@ -57,17 +71,23 @@
       this.header.appendChild(this.title);
       this.header.appendChild(right);
       this.header.appendChild(left);
-      this.el.appendChild(this.header);
+
+      // Inserir o header antes de qualquer outro filho do container
+      if (this.el.firstChild) {
+        this.el.insertBefore(this.header, this.el.firstChild);
+      } else {
+        this.el.appendChild(this.header);
+      }
+
+      /* Removida a criação do cabeçalho fixo dos dias da semana (weekdays) */
     }
     this.title.innerHTML = this.current.format('MMMM YYYY');
   }
 
   Calendar.prototype.drawMonth = function() {
-    var self = this;
     if (this.month) {
       this.month.remove();
     }
-    
     this.month = createElement('div', 'month');
     this.el.appendChild(this.month);
     this.backFill();
@@ -112,7 +132,6 @@
   Calendar.prototype.drawDay = function(day) {
     var self = this;
     this.getWeek(day);
-
     var outer = createElement('div', this.getDayClass(day));
 
     this.events.forEach(function(ev) {
@@ -128,7 +147,7 @@
       self.openDay(this);
     });
 
-    var name = createElement('div', 'day-name', day.format('ddd'));
+    var name = createElement('div', 'day-name', day.format('ddd')); // MANTIDO: Dia da semana dentro da célula
     var number = createElement('div', 'day-number', day.format('DD'));
 
     var eventsDisplay = createElement('div', 'day-events');
@@ -150,15 +169,13 @@
         var evSpan = createElement('span', 'purple');
         element.appendChild(evSpan);
       });
-
       menstruationEnds.forEach(() => {
         var evSpan = createElement('span', 'green');
         element.appendChild(evSpan);
       });
-
       dailyRecords.forEach(ev => {
-          var evSpan = createElement('span', ev.color);
-          element.appendChild(evSpan);
+        var evSpan = createElement('span', ev.color);
+        element.appendChild(evSpan);
       });
     }
   }
@@ -221,11 +238,9 @@
 
     var buttonWrapper = createElement('div', 'details-buttons');
     var self = this;
-
     var addRecordBtn = createElement('button', 'add-event-button', 'Adicionar Registro Diário');
     addRecordBtn.onclick = function() { self.openModal(); };
     buttonWrapper.appendChild(addRecordBtn);
-
     var addMenstruationBtn = createElement('button', 'add-menstruation-button', 'Registrar Menstruação');
     addMenstruationBtn.onclick = function() { self.registerMenstruation(); };
     buttonWrapper.appendChild(addMenstruationBtn);
@@ -246,24 +261,41 @@
     events.forEach(function(ev) {
       var div = createElement('div', 'event');
       var square = createElement('div', 'event-category ' + ev.color);
-      let text = ev.eventName;
 
       if (ev.type === 'daily_record') {
-        text = `Sintomas: ${ev.symptoms || '-'}, Medicamento: ${ev.medication || '-'}`;
-      } else if (ev.type === 'menstruation_period' && ev.eventName === 'Início Menstruação') {
-        text = "Início da Menstruação";
-      } else if (ev.type === 'menstruation_period' && ev.eventName === 'Período Menstrual') {
-        text = "Período Menstrual";
-      } else if (ev.type === 'menstruation_period' && ev.eventName === 'Fim Menstruação (previsão)') {
-        text = "Fim da Menstruação";
-      }
+        let wrapperDiv = createElement('div', 'daily-record-wrapper');
+        let title = createElement('strong', '', 'Registro Diário');
+        wrapperDiv.appendChild(title);
 
-      var span = createElement('span', '', text);
+        let symptomsList = createElement('ul', 'symptoms-list');
+        if (ev.symptoms && ev.symptoms.length > 0) {
+          ev.symptoms.split(",").map(s => s.trim()).forEach(symptom => {
+            let li = document.createElement('li');
+            let icon = SYMPTOM_ICONS[symptom] || "•";
+            li.textContent = `${icon} ${symptom}`;
+            symptomsList.appendChild(li);
+          });
+        } else {
+          let li = document.createElement('li');
+          li.textContent = "Nenhum sintoma informado";
+          symptomsList.appendChild(li);
+        }
+        wrapperDiv.appendChild(symptomsList);
 
-      if (ev.color !== 'no_display_color') {
+        let med = createElement('p', '', `💊 Medicamento: ${ev.medication || '-'}`);
+        wrapperDiv.appendChild(med);
+
         div.appendChild(square);
+        div.appendChild(wrapperDiv);
+      } else {
+        let text = ev.eventName;
+        if (ev.type === 'menstruation_period' && ev.eventName === 'Início Menstruação') text = "Início da Menstruação";
+        if (ev.type === 'menstruation_period' && ev.eventName === 'Período Menstrual') text = "Período Menstrual";
+        if (ev.type === 'menstruation_period' && ev.eventName === 'Fim Menstruação (previsão)') text = "Fim da Menstruação";
+        var span = createElement('span', '', text);
+        if (ev.color !== 'no_display_color') div.appendChild(square);
+        div.appendChild(span);
       }
-      div.appendChild(span);
       wrapper.appendChild(div);
     });
 
@@ -283,8 +315,7 @@
 
   Calendar.prototype.openModal = function() {
     this.modal.classList.add('show');
-    this.symptomsInput.value = '';
-    this.medicationInput.value = '';
+    this.symptomsList.querySelectorAll('input[type=checkbox]').forEach(cb => cb.checked = false);
   }
 
   Calendar.prototype.closeModal = function() {
@@ -292,7 +323,8 @@
   }
 
   Calendar.prototype.saveDailyRecord = function() {
-    var symptoms = this.symptomsInput.value;
+    var symptoms = Array.from(this.symptomsList.querySelectorAll('input:checked'))
+      .map(cb => cb.value).join(', ');
     var medication = this.medicationInput.value;
 
     if (this.selectedDate) {
@@ -302,7 +334,6 @@
         this.closeModal();
         return;
       }
-
       this.addEvent({
         eventName: 'Registro Diário',
         calendar: 'Saúde',
@@ -314,9 +345,7 @@
       });
       this.closeModal();
       var dayElement = document.querySelector('.day.selected-day');
-      if (dayElement) {
-        this.openDay(dayElement);
-      }
+      if (dayElement) this.openDay(dayElement);
     } else {
       alert("Por favor, selecione um dia no calendário primeiro.");
     }
@@ -337,9 +366,7 @@
         duration: 5
       });
       var dayElement = document.querySelector('.day.selected-day');
-      if (dayElement) {
-        this.openDay(dayElement);
-      }
+      if (dayElement) this.openDay(dayElement);
     } else {
       alert("Por favor, selecione um dia para registrar a menstruação.");
     }
@@ -347,13 +374,10 @@
 
   Calendar.prototype.nextMonth = function() {
     this.current.add(1, 'months');
-    this.next = true;
     this.draw();
   }
-
   Calendar.prototype.prevMonth = function() {
     this.current.subtract(1, 'months');
-    this.next = false;
     this.draw();
   }
 
@@ -380,3 +404,83 @@
     return ele;
   }
 }();
+
+/* ------------------ Inicialização e UI (sidebar + carrossel) ------------------ */
+document.addEventListener('DOMContentLoaded', function() {
+  // inicializa calendário
+  const calendar = new Calendar('#calendar', []);
+
+  // CONTROLE DO SIDEBAR
+  const sidebar = document.getElementById('sidebar');
+  const toggle = document.getElementById('sidebarToggle');
+  toggle.addEventListener('click', function(e){
+    e.stopPropagation();
+    sidebar.classList.toggle('expanded');
+  });
+  // clique fora do sidebar fecha quando expandido
+  document.addEventListener('click', function(e){
+    if (!sidebar.contains(e.target) && sidebar.classList.contains('expanded')) {
+      sidebar.classList.remove('expanded');
+    }
+  });
+
+  // CARROSSEL SIMPLES
+  const track = document.querySelector('.carousel-track');
+  const prev = document.querySelector('.carousel-prev');
+  const next = document.querySelector('.carousel-next');
+  const dots = Array.from(document.querySelectorAll('.carousel-dot'));
+  if (track) {
+    const items = Array.from(track.querySelectorAll('.carousel-item'));
+    let index = 0;
+
+    function updateCarousel() {
+      const gap = 16; // deve espelhar o gap do CSS
+      if (items.length === 0) return;
+
+      // Obtém a largura computada, que agora é dinâmica (calc((100% - 32px) / 2.5))
+      const itemWidth = items[0].getBoundingClientRect().width;
+      
+      const move = index * (itemWidth + gap);
+      track.style.transform = `translateX(${-move}px)`;
+      dots.forEach((d, i) => d.classList.toggle('active', i === index));
+      
+      // Lógica para desabilitar setas
+      prev.disabled = index === 0;
+      // Calcula o número máximo de itens visíveis para determinar o limite do next.
+      // 2.5 é o número de itens visíveis na configuração desktop/maior
+      // 1.5 é o número de itens visíveis na configuração mobile (<900px)
+      const visibleItems = window.innerWidth > 900 ? 2.5 : 1.5;
+      const maxIndex = Math.ceil(items.length - visibleItems); 
+      next.disabled = index >= maxIndex; 
+    }
+
+    prev?.addEventListener('click', function() {
+      if (index > 0) index--;
+      updateCarousel();
+    });
+    next?.addEventListener('click', function() {
+      // Re-calcula para garantir que não avance demais, usando a lógica do updateCarousel
+      const visibleItems = window.innerWidth > 900 ? 2.5 : 1.5;
+      const maxIndex = Math.ceil(items.length - visibleItems); 
+      if (index < maxIndex) index++;
+      updateCarousel();
+    });
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', function() {
+        index = i;
+        updateCarousel();
+      });
+    });
+
+    window.addEventListener('resize', updateCarousel);
+    updateCarousel();
+  }
+
+  // Modal: fechar com Esc
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      const modal = document.getElementById('eventModal');
+      if (modal && modal.classList.contains('show')) modal.classList.remove('show');
+    }
+  });
+});

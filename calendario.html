@@ -1,39 +1,107 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Calendário</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Girlssly - Calendário</title>
 
-  <link rel="stylesheet" href="styleCalendario.css">
-
+  <link rel="stylesheet" href="styleCalendario.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
   <script defer src="scriptCalendario.js"></script>
 </head>
 <body>
-  <div id="calendar">
-    <div class="legend">
-      <span class="entry purple">INÍCIO MENSTRUAÇÃO</span>
-      <span class="entry green">FIM MENSTRUAÇÃO</span>
-      <span class="entry blue">REGISTRO DIÁRIO</span>
+  <aside id="sidebar" class="collapsed" aria-label="Menu lateral">
+    
+    <button id="sidebarToggle" class="hamburger" aria-label="Abrir menu">
+      <img src="menu.png" alt="Menu">
+    </button>
+
+    <div class="logo">
+      <img src="logo1.png" alt="Girlssly Logo">
     </div>
+
+    <ul class="menu">
+      <li><span class="icon"><img src="home.png" alt="Início"></span><span class="label">Início</span></li>
+      <li><span class="icon"><img src="calendar.png" alt="Calendário"></span><span class="label">Calendário</span></li>
+      <li><span class="icon"><img src="notificacao.png" alt="Notificações"></span><span class="label">Notificações</span></li>
+      <li><span class="icon"><img src="biblioteca.png" alt="Bibliotecas"></span><span class="label">Bibliotecas</span></li>
+      <li><span class="icon"><img src="ciclo.png" alt="Meus ciclos"></span><span class="label">Meus ciclos</span></li>
+      <li><span class="icon"><img src="config.png" alt="Configurações"></span><span class="label">Configurações</span></li>
+      <li><span class="icon"><img src="sair.png" alt="Configurações"></span><span class="label">Sair</span></li>
+    </ul>
+  </aside>
+
+  <div class="main-content">
+    <header class="topbar">
+      <div class="topbar-left"></div>
+      <div class="user-profile">
+        <div class="avatar">👤</div>
+        <div class="user-text">
+          <div class="greeting">Bem-vinda</div>
+          <div class="name">Fulano de Tal</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="content-inner">
+      <div id="calendar"></div>
+
+      <div class="legend">
+        <span class="entry purple">Início menstruação</span>
+        <span class="entry green">Fim menstruação</span>
+        <span class="entry blue">Registro diário</span>
+      </div>
+
+      <div class="carousel">
+        <button class="carousel-prev" aria-label="Anterior">‹</button>
+
+        <div class="carousel-viewport">
+          <div class="carousel-track">
+            <div class="carousel-item"> </div>
+            <div class="carousel-item"> </div>
+            <div class="carousel-item"> </div>
+            <div class="carousel-item"> </div>
+            <div class="carousel-item"> </div>
+          </div>
+        </div>
+
+        <button class="carousel-next" aria-label="Próximo">›</button>
+
+        <div class="carousel-dots" role="tablist" aria-label="Paginação do carrossel">
+          <button class="carousel-dot"></button>
+          <button class="carousel-dot"></button>
+          <button class="carousel-dot"></button>
+          <button class="carousel-dot"></button>
+          <button class="carousel-dot"></button>
+        </div>
+      </div>
+    </main>
   </div>
 
   <div id="eventModal" class="modal">
     <div class="modal-content">
       <span class="close-button">&times;</span>
       <h2>Registro Diário</h2>
-      <label for="symptomsInput">Sintomas:</label>
-      <input type="text" id="symptomsInput"><br>
+
+      <label for="symptomsList">Sintomas:</label>
+      <div id="symptomsList" class="symptoms-grid">
+        <label><input type="checkbox" value="Cólica"> 🥴 Cólica</label>
+        <label><input type="checkbox" value="Inchaço"> 🤰 Inchaço</label>
+        <label><input type="checkbox" value="Náusea"> 🤢 Náusea</label>
+        <label><input type="checkbox" value="Dor de cabeça"> 🤕 Dor de cabeça</label>
+        <label><input type="checkbox" value="Indisposição"> 🔋 Indisposição</label>
+        <label><input type="checkbox" value="Dores musculares"> 💪 Dores musculares</label>
+        <label><input type="checkbox" value="Alteração de humor"> 😡 Alteração de humor</label>
+        <label><input type="checkbox" value="Acne"> 🍔 Acne</label>
+        <label><input type="checkbox" value="Diarreia"> 🚽 Diarreia</label>
+        <label><input type="checkbox" value="Aumento na frequência urinária"> 🚻 Urinar com frequência</label>
+      </div>
+
       <label for="medicationInput">Uso de Medicamento:</label>
       <input type="text" id="medicationInput"><br><br>
+
       <button id="saveDailyRecord">Salvar Registro</button>
     </div>
   </div>
-
-  <script>
-    window.addEventListener("DOMContentLoaded", function () {
-      const calendar = new Calendar('#calendar', []);
-    });
-  </script>
 </body>
 </html>
