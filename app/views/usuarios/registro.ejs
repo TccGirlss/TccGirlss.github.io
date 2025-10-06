@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="/css/registro.css">
+    <link rel="icon" type="image/png" href="/img/icon.png">
+
+</head>
+<body>
+
+<div class="container">
+    <div class="left">
+        <img src="/img/logo.png" alt="Logo">
+        <h1>Junte-se a nós!</h1>
+        <p> Monitore seu ciclo, entenda seu corpo e cuide da sua saúde todos os dias.</p>
+    </div>
+
+    <div class="right">
+        <h2>CADASTRE-SE</h2>
+        <p>Já possui uma conta? <a href="/login">ENTRAR</a></p>
+
+        <% if (errosValidacao.length > 0) { %>
+            <ul>
+                <% errosValidacao.forEach(function(erro) { %>
+                    <li><%= erro.msg %></li>
+                <% }) %>
+            </ul>
+        <% } %>
+
+        <form action="/registro" method="post">
+            <div class="form-group">
+                <input type="text" name="nome" placeholder="Nome" value="<%= usuario.nome %>">
+            </div>
+            <div class="form-group">
+                <input type="email" name="email" placeholder="Email" value="<%= usuario.email %>">
+            </div>
+            <div class="form-group">
+                <input type="password" name="senha" placeholder="Senha">
+            </div>
+            <button type="submit">Cadastrar</button>
+            <p style="font-size: 0.8rem; text-align: center; color: #555; margin-top: 15px; margin-bottom: 5px;">
+                Ao se cadastrar, você concorda com nossos
+                <a href="/seguranca/termos.html">Termos de Uso</a> e
+                <a href="/privacidade">Política de Privacidade</a>.
+            </p>
+        </form>
+    </div>
+</div>
+
+
+</body>
+</html>

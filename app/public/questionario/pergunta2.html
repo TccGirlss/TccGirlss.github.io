@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Peso e Altura</title>
+  <link rel="icon" type="image/png" href="/img/icon.png">
+</head>
+<body>
+<h2>Qual seu peso (kg) e altura (cm)?</h2>
+<input type="number" id="peso" placeholder="Peso (kg)" value="">
+<input type="number" id="altura" placeholder="Altura (cm)" value="">
+<br>
+<button onclick="voltar()">Voltar</button>
+<button onclick="proxima()">Próxima</button>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const usuarioId = params.get("usuario_id");
+
+  // Preenche os campos se já tiver salvo
+  document.getElementById('peso').value = localStorage.getItem('peso') || '';
+  document.getElementById('altura').value = localStorage.getItem('altura') || '';
+
+  function voltar() {
+    window.location.href = 'pergunta1.html?usuario_id=' + usuarioId;
+  }
+
+  function proxima() {
+    localStorage.setItem('peso', document.getElementById('peso').value);
+    localStorage.setItem('altura', document.getElementById('altura').value);
+    window.location.href = 'pergunta3.html?usuario_id=' + usuarioId;
+  }
+</script>
+
+</body>
+</html>

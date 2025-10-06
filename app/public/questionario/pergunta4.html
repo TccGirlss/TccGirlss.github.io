@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="icon" type="image/png" href="/img/icon.png">
+</head>
+<body>
+  
+  <h2>Seu ciclo é regular?</h2>
+<button onclick="responder(true)">Sim</button>
+<button onclick="responder(false)">Não</button>
+<br>
+<button onclick="voltar()">Voltar</button>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const usuarioId = params.get("usuario_id");
+
+  function voltar() {
+    window.location.href = 'pergunta3.html?usuario_id=' + usuarioId;
+  }
+
+  function responder(valor) {
+    localStorage.setItem('ciclo_regular', valor);
+    window.location.href = 'pergunta5.html?usuario_id=' + usuarioId;
+  }
+</script>
+
+
+</body>
+</html>

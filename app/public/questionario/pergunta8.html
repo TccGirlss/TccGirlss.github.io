@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="icon" type="image/png" href="/img/icon.png">
+</head>
+<body>
+
+  <h2>Durante a menstruação, quais desses sintomas você sente?</h2>
+
+<label><input type="checkbox" value="colica"> Cólica</label><br>
+<label><input type="checkbox" value="dor muscular"> Dor muscular</label><br>
+<label><input type="checkbox" value="dor de cabeça"> Dor de cabeça</label><br>
+<label><input type="checkbox" value="nausea"> Náusea</label><br>
+<label><input type="checkbox" value="inchaco"> Inchaço</label><br>
+<label><input type="checkbox" value="indisposicao"> Indisposição</label><br>
+<label><input type="checkbox" value="acne"> Acne</label><br>
+<label><input type="checkbox" value="aumento urinario"> Aumento urinário</label><br>
+<label><input type="checkbox" value="diarreia"> Diarreia</label><br>
+<label><input type="checkbox" value="alteracao de humor"> Alteração de humor</label><br>
+
+<button onclick="voltar()">Voltar</button>
+<button onclick="proxima()">Finalizar</button>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const usuarioId = params.get("usuario_id");
+
+  function voltar() {
+    window.location.href = 'pergunta7.html?usuario_id=' + usuarioId;
+  }
+
+  function proxima() {
+    const sintomas = [];
+    document.querySelectorAll('input[type="checkbox"]:checked').forEach(cb => sintomas.push(cb.value));
+    localStorage.setItem('sintomas', sintomas.join(','));
+    window.location.href = 'fim.html?usuario_id=' + usuarioId;
+  }
+</script>
+
+  
+</body>
+</html>

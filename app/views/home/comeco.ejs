@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Início do Questionário</title>
+  <link rel="icon" type="image/png" href="/img/icon.png">
+</head>
+<body>
+  <h1>Antes de continuar, responda ao nosso questionário</h1>
+  <button id="iniciar">Iniciar</button>
+
+  <script>
+    const usuarioId = "<%= usuario_id %>";
+
+    document.getElementById("iniciar").addEventListener("click", () => {
+      // Redireciona para pergunta1.html na pasta public/questionario
+      window.location.href = `/questionario/pergunta1.html?usuario_id=${usuarioId}`;
+    });
+  </script>
+</body>
+</html>

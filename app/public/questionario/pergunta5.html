@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="icon" type="image/png" href="/img/icon.png">
+</head>
+<body>
+  
+  <h2>Quantos dias dura sua menstruação?</h2>
+<button onclick="responder('3')">Até 3 dias</button>
+<button onclick="responder('5')">Até 5 dias</button>
+<button onclick="responder('7')">Até 7 dias</button>
+<button onclick="responder('9')">Até 9 dias</button>
+<br>
+<button onclick="voltar()">Voltar</button>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const usuarioId = params.get("usuario_id");
+
+  function voltar() {
+    window.location.href = 'pergunta4.html?usuario_id=' + usuarioId;
+  }
+
+  function responder(valor) {
+    localStorage.setItem('duracao_menstruacao', valor);
+    window.location.href = 'pergunta6.html?usuario_id=' + usuarioId;
+  }
+</script>
+
+
+</body>
+</html>

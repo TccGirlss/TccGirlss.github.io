@@ -1,0 +1,249 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: #fff;
+    color: #333;
+    line-height: 1.5;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: transparent;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+header nav ul {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+    background-color: #A38EE9;
+    border-radius: 20px;
+    padding: 10px 13px;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: #000000;
+    padding: 8px 16px;
+    border-radius: 20px;
+    background-color: #fff;
+}
+
+header nav ul li a:hover {
+    background: #dddbff;
+    color: #0a0a0a;
+}
+
+
+.btn-login {
+    background: none;
+    border: 1px solid #ccc;
+    padding: 8px 16px;
+    border-radius: 20px;
+    text-decoration: none;
+    color: #333;
+    background-color: #FFFBFB;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+
+}
+
+.home-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px;
+    background: #fff;
+    position: relative;
+    min-height: 600px;
+}
+
+.home-text {
+  max-width: 500px;        /* largura parecida com a do site */
+  text-align: left;      /* centraliza o texto */
+  padding: 0 30px;
+  flex: 1;
+}
+
+.home-text h1 {
+  font-size: 48px;         /* tamanho do título */
+  font-weight: 400;        /* sem negrito exagerado */
+  color: #242424;          /* tom escuro, mas não preto puro */
+  margin-bottom: 20px;
+}
+
+.home-text p {
+  font-size: 20px;         /* um pouco maior que o padrão */
+  font-weight: 300;        /* mais leve, estilo "light" */
+  color: #555;             /* cinza suave */
+  line-height: 1.6;        /* espaçamento entre linhas */
+}
+
+
+.btn-primary {
+    display: inline-block;
+    background: #FFFFAB;
+    color: #333;
+    padding: 12px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+header .logo img {
+  height: 100px;
+  object-fit: contain
+}
+
+.imagem {
+  position: absolute;
+  right: 0;
+  top: 0;
+  border-top-left-radius: 50px;
+  z-index: 1;
+}
+
+
+.home-image img { 
+    max-width: 500px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+}
+
+    /* Recursos Section */
+    .recursos {
+      padding: 2rem;
+      background-color: white;
+    }
+
+    .recursos h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #000;
+      font-size: 40px;
+    }
+
+    .calendario {
+      z-index: 2;
+    }
+
+.card {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.card>div {
+    flex: 1 1 calc(25% - 2rem);
+    text-align: center;
+    background: #f5f8ff;
+    border-radius: 1rem;
+    padding: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px #A38EE9;
+}
+
+.card>div:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px #23002e;
+}
+
+.card img {
+      max-width: 100%;
+      height: 150px;
+      object-fit: contain;
+      margin-bottom: 10px;
+}
+
+.card h3 {
+    margin: 1rem 0 0.5rem 0;
+    color: #A38EE9;
+}
+
+.card p {
+    margin-bottom: 1rem;
+}
+
+  footer {
+  background-color: #A38EE9;
+  color: #000;
+  padding: 20px 40px;
+  align-items: center;
+  height: 180px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  overflow: hidden;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+}
+
+.rodape_contato h3{
+  margin-bottom: 20px;
+}
+
+.rodape_contato p,
+.rodape__social p {
+  margin-bottom: 15px;
+}
+
+.rodape_rede {
+  text-align: center;
+}
+
+.rodape_rede .bolas {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.bolas {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.bola {
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.bola:hover {
+  background-color: #FFFFAB;
+}
+
+.logo_rodape img {
+  height: 150px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+  .espaco {
+    margin-bottom: 80px;
+  }
+
+
