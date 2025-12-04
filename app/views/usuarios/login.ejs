@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="/css/registro.css">
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="left">
+      <img src="/img/logo.png" alt="Logo">
+      <h1>O que é Girlslly?</h1>
+      <p>O Girlslly oferece um espaço intuitivo e seguro para acompanhar o ciclo menstrual, </p>
+      <p>ajudando a entender melhor o corpo e a saúde.</p>
+      </p>
+    </div>
+
+    <div class="right">
+      <h2>ENTRAR</h2>
+      <p>Não tem uma conta? <a href="/registro">Cadastre-se</a></p>
+
+      <% if (erro) { %>
+        <div class="alerta-erro">
+          <i class="fa fa-exclamation-circle"></i>
+          <span>
+            <%= erro %>
+          </span>
+        </div>
+        <% } %>
+
+
+          <form action="/login" method="post">
+            <div class="form-group">
+              <input type="email" name="email" placeholder="E-mail" required>
+            </div>
+            <div class="form-group">
+              <input type="password" name="senha" placeholder="Senha" required>
+            </div>
+
+            <div class="form-group" style="text-align: right; margin-top: -5px; margin-bottom: 15px;">
+              <a href="/esqueci" class="forgot-link">Esqueci minha senha</a>
+            </div>
+
+            <button type="submit">Entrar</button>
+
+            <div class="divider">
+              <span>ou entre de outra forma</span>
+            </div>
+
+            <div id="googleButtonDiv"></div>
+
+            <script src="https://accounts.google.com/gsi/client" async defer></script>
+            <script>
+              function handleCredentialResponse(response) {
+                fetch('/auth/google', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({ credential: response.credential })
+                })
+                  .then(res => res.json())
+                  .then(data => {
+                    if (data.sucesso) {
+                      window.location.href = data.redirecionarPara;
+                    } else {
+                      alert(data.mensagem || 'Erro ao fazer login com Google');
+                    }
+                  })
+
+                  .catch(err => {
+                    console.error(err);
+                    alert('Erro de rede ao fazer login com Google');
+                  });
+              }
+
+              window.onload = function () {
+                google.accounts.id.initialize({
+                  client_id: '1065660492249-ufuke08u7lvoe65p9i2hqsb9ci021gpu.apps.googleusercontent.com',
+                  callback: handleCredentialResponse
+                });
+
+                google.accounts.id.renderButton(
+                  document.getElementById("googleButtonDiv"),
+                  { theme: "outline", size: "large", text: "signup_with" }
+                );
+
+                google.accounts.id.prompt();
+              }
+            </script>
+          </form>
+    </div>
+  </div>
+
+</body>
+
+</html>

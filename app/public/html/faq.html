@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Girlslly - FAQ</title>
+  <link rel="stylesheet" href="/css/faq.css" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="/js/menu.js"></script>
+</head>
+
+<body>
+  <aside id="sidebar" class="collapsed" aria-label="Menu lateral">
+
+    <button id="sidebarToggle" class="hamburger" aria-label="Abrir menu">
+      <img src="/img/menu.png" alt="Menu">
+    </button>
+
+    <div class="logo">
+      <img src="/img/logo1.png" alt="Girlssly Logo">
+    </div>
+
+    <ul class="menu">
+      <li>
+        <a href="/inicio" class="menu-link">
+          <span class="icon"><img src="/img/home.png" alt="Início"></span>
+          <span class="label">Início</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="/biblioteca.ejs" class="menu-link">
+          <span class="icon"><img src="/img/biblioteca.png" alt="Bibliotecas"></span>
+          <span class="label">Bibliotecas</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="/html/ciclo.html" class="menu-link">
+          <span class="icon"><img src="/img/ciclo.png" alt="Ciclos"></span>
+          <span class="label">Ciclos</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="/html/config.html" class="menu-link">
+          <span class="icon"><img src="/img/config.png" alt="Configurações"></span>
+          <span class="label">Configurações</span></a>
+      </li>
+
+      <li class="active">
+        <a href="/html/faq.html" class="menu-link">
+          <span class="icon"><img src="/img/faq.png" alt="Dúvidas Frequentes"></span>
+          <span class="label">FAQ</span>
+        </a>
+      </li>
+
+      <li onclick="logout()">
+        <span class="icon"><img src="/img/sair.png" alt="Sair"></span>
+        <span class="label">Sair</span>
+      </li>
+    </ul>
+  </aside>
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <div class="main-content">
+    <header class="topbar-static">
+      <div class="topbar-left"></div>
+      <div class="user-profile">
+        <div class="avatar">👤</div>
+        <div class="user-text">
+          <div class="greeting">Bem-vinda</div>
+          <div class="name">Carregando...</div>
+        </div>
+      </div>
+    </header>
+
+    <header class="topbar-fixed">
+      <div class="topbar-left"></div>
+      <div class="user-profile">
+        <div class="avatar">👤</div>
+        <div class="user-text">
+          <div class="greeting">Bem-vinda</div>
+          <div class="name">Carregando...</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="duvidas-container">
+      <h1>Dúvidas Frequentes</h1>
+
+      <div class="faq">
+        <div class="faq-item">
+          <button class="faq-question">
+            Como a plataforma auxilia no meu ciclo?
+          </button>
+          <div class="faq-answer">
+            Nossa ferramenta permite que você <strong>registre, acompanhe e visualize</strong> as fases do seu ciclo,
+            incluindo previsão de menstruação e período fértil, ajudando você a entender melhor o seu corpo.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            As informações que insiro são seguras?
+          </button>
+          <div class="faq-answer">
+            Sim! A <strong>segurança e a privacidade</strong> dos seus dados são nossa prioridade. Implementamos medidas
+            robustas para garantir que suas informações sejam mantidas em sigilo.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            O que encontro na seção "Bibliotecas"?
+          </button>
+          <div class="faq-answer">
+            A seção "Bibliotecas" traz artigos, guias e recursos confiáveis sobre saúde feminina, bem-estar e ciclos.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            Posso alterar minhas respostas do questionário?
+          </button>
+          <div class="faq-answer">
+            Sim, na seção Configurações você pode modificar suas informações a qualquer momento.
+          </div>
+        </div>
+      </div>
+      <div class="duvidas-formulario">
+        <h2>Envie sua dúvida</h2>
+        <form id="duvidaForm">
+          <label for="pergunta">Digite sua dúvida abaixo:</label>
+          <textarea id="pergunta" name="pergunta" rows="4" placeholder="Escreva aqui sua dúvida..." required></textarea>
+          <button type="submit">Enviar dúvida</button>
+        </form>
+      </div>
+
+      <script>
+        document.querySelectorAll(".faq-question").forEach((button) => {
+          button.addEventListener("click", () => {
+            const answer = button.nextElementSibling;
+
+            document.querySelectorAll(".faq-answer").forEach((a) => {
+              if (a !== answer) a.style.display = "none";
+            });
+
+            if (answer.style.display === "block") {
+              answer.style.display = "none";
+            } else {
+              answer.style.display = "block";
+            }
+          });
+        });
+      </script>
+
+      <div id="customAlert" class="custom-alert hidden">
+        <div class="alert-box">
+          <h2 id="alert-title">✨</h2>
+          <p id="alert-message"></p>
+          <button id="alert-ok">OK</button>
+        </div>
+      </div>
+
+      <script>
+        function showAlert(title, message) {
+          const alertBox = document.getElementById("customAlert");
+          document.getElementById("alert-title").innerText = title;
+          document.getElementById("alert-message").innerText = message;
+          alertBox.classList.remove("hidden");
+
+          document.getElementById("alert-ok").onclick = () => {
+            alertBox.classList.add("hidden");
+          };
+        }
+
+        document.querySelector("#duvidaForm").addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const pergunta = document.querySelector("#pergunta").value;
+
+          const res = await fetch("/enviar-duvida", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ pergunta }),
+          });
+
+          if (res.ok) {
+            showAlert("Dúvida enviada!", "Sua dúvida foi enviada com sucesso à equipe Girlslly!");
+            e.target.reset();
+          } else {
+            showAlert("Erro", "Ocorreu um erro ao enviar sua dúvida.");
+          }
+        });
+      </script>
+
+</body>
+
+</html>

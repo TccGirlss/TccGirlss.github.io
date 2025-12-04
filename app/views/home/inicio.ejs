@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Girlslly - Calendário</title>
+
+  <link rel="stylesheet" href="/css/calendario.css" />
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <link rel="stylesheet" href="/css/alerts.css">
+  <script src="/js/alerts.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+  <script defer src="/js/calendario.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="/js/menu.js"></script>
+</head>
+
+<body>
+  <aside id="sidebar" class="collapsed" aria-label="Menu lateral">
+
+    <button id="sidebarToggle" class="hamburger" aria-label="Abrir menu">
+      <img src="/img/menu.png" alt="Menu">
+    </button>
+
+    <div class="logo">
+      <img src="/img/logo1.png" alt="Girlssly Logo">
+    </div>
+
+    <ul class="menu">
+      <li class="active">
+        <a href="/inicio" class="menu-link">
+          <span class="icon"><img src="/img/home.png" alt="Início"></span>
+          <span class="label">Início</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="/biblioteca.ejs" class="menu-link">
+          <span class="icon"><img src="/img/biblioteca.png" alt="Bibliotecas"></span>
+          <span class="label">Bibliotecas</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="/html/ciclo.html" class="menu-link">
+          <span class="icon"><img src="/img/ciclo.png" alt="Ciclos"></span>
+          <span class="label">Ciclos</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="/html/config.html" class="menu-link">
+          <span class="icon"><img src="/img/config.png" alt="Configurações"></span>
+          <span class="label">Configurações</span></a>
+      </li>
+
+      <li>
+        <a href="/html/faq.html" class="menu-link">
+          <span class="icon"><img src="/img/faq.png" alt="Notificações"></span>
+          <span class="label">FAQ</span>
+        </a>
+      </li>
+
+      <li onclick="logout()">
+        <span class="icon"><img src="/img/sair.png" alt="Sair"></span>
+        <span class="label">Sair</span>
+      </li>
+    </ul>
+  </aside>
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <div class="main-content">
+    <header class="topbar-static">
+      <div class="topbar-left"></div>
+      <div class="user-profile">
+        <div class="avatar">👤</div>
+        <div class="user-text">
+          <div class="greeting">Bem-vinda</div>
+          <div class="name">Carregando...</div>
+        </div>
+      </div>
+    </header>
+
+    <header class="topbar-fixed">
+      <div class="topbar-left"></div>
+      <div class="user-profile">
+        <div class="avatar">👤</div>
+        <div class="user-text">
+          <div class="greeting">Bem-vinda</div>
+          <div class="name">Carregando...</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="content-inner">
+      <div id="calendar"></div>
+
+      <div class="legend">
+        <div class="legend-title">Legenda do Calendário</div>
+        <div class="legend-group">
+          <div class="legend-item">
+            <div class="legend-color menstrual"></div>
+            <span class="legend-text">Fase Menstrual</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color purple"></div>
+            <span class="legend-text">Início menstruação</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color green"></div>
+            <span class="legend-text">Fim menstruação</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color registro-diario"></div>
+            <span class="legend-text">Registro diário</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color previsao"></div>
+            <span class="legend-text">Previsão</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color fase-folicular"></div>
+            <span class="legend-text">Fase Folicular</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color fase-ovulatoria"></div>
+            <span class="legend-text">Fase Ovulatória</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color fase-lutea"></div>
+            <span class="legend-text">Fase Lútea</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="carousel">
+
+
+        <section class="phases-section">
+          <h2>Fases do seu ciclo</h2>
+          <p class="phases-intro ">
+            Existem diversas fases em seu ciclo, descubra sobre cada uma delas.
+          </p>
+          <div class="phases-grid">
+            <div class="phase-card phase-menstrual" onclick="openPhaseModal('fase1')">
+              <h3>Menstruação</h3>
+            </div>
+            <div class="phase-card phase-folicular" onclick="openPhaseModal('fase2')">
+              <h3>Fase Folicular</h3>
+            </div>
+            <div class="phase-card phase-ovulatoria" onclick="openPhaseModal('fase3')">
+              <h3>Fase Ovulatória</h3>
+            </div>
+            <div class="phase-card phase-lutea" onclick="openPhaseModal('fase4')">
+              <h3>Fase Lútea</h3>
+            </div>
+            <div class="phase-card fase-pre-menstrual" onclick="openPhaseModal('fase5')">
+              <h3>Pré-Menstrual</h3>
+            </div>
+
+          </div>
+        </section>
+
+        <div id="eventModal" class="modal">
+          <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Registro Diário</h2>
+
+            <label for="symptomsList">Sintomas:</label>
+            <div id="symptomsList" class="symptoms-grid">
+              <label><input type="checkbox" value="Cólica"> 🥴 Cólica</label>
+              <label><input type="checkbox" value="Inchaço"> 🤰 Inchaço</label>
+              <label><input type="checkbox" value="Náusea"> 🤢 Náusea</label>
+              <label><input type="checkbox" value="Dor de cabeça"> 🤕 Dor de cabeça</label>
+              <label><input type="checkbox" value="Indisposição"> 🔋 Indisposição</label>
+              <label><input type="checkbox" value="Dores musculares"> 💪 Dores musculares</label>
+              <label><input type="checkbox" value="Alteração de humor"> 😡 Alteração de humor</label>
+              <label><input type="checkbox" value="Acne"> 🍔 Acne</label>
+              <label><input type="checkbox" value="Diarreia"> 🚽 Diarreia</label>
+              <label><input type="checkbox" value="Aumento na frequência urinária"> 🚻 Urinar com frequência</label>
+            </div>
+
+            <div class="medication-field">
+              <label for="medicationInput">Uso de Medicamento:</label>
+              <input type="text" id="medicationInput">
+            </div>
+
+            <button id="saveDailyRecord" class="save-button">Salvar Registro</button>
+          </div>
+        </div>
+        <div id="fase1" class="modal">
+          <div class="modal-content">
+            <span class="close-button" onclick="closePhaseModal('fase1')">&times;</span>
+            <h2>Fase Menstrual</h2>
+            <p>É quando ocorre a menstruação, geralmente entre 3 e 7 dias. O corpo elimina o endométrio, o revestimento
+              do útero, por não haver fecundação.</p>
+          </div>
+        </div>
+
+        <div id="fase2" class="modal">
+          <div class="modal-content">
+            <span class="close-button" onclick="closePhaseModal('fase2')">&times;</span>
+            <h2>Fase Folicular</h2>
+            <p>Começa no primeiro dia da menstruação e vai até a ovulação. Ocorre a maturação dos folículos no ovário e
+              o aumento de estrogênio.</p>
+          </div>
+        </div>
+
+        <div id="fase3" class="modal">
+          <div class="modal-content">
+            <span class="close-button" onclick="closePhaseModal('fase3')">&times;</span>
+            <h2>Fase Ovulatória</h2>
+            <p>Ocorre por volta do 14º dia do ciclo. O óvulo maduro é liberado para as trompas de falópio. É o período
+              mais fértil.</p>
+          </div>
+        </div>
+
+        <div id="fase4" class="modal">
+          <div class="modal-content">
+            <span class="close-button" onclick="closePhaseModal('fase4')">&times;</span>
+            <h2>Fase Lútea</h2>
+            <p>Após a ovulação, o corpo se prepara para uma possível gravidez. A produção de progesterona aumenta. Se
+              não houver fecundação, o ciclo reinicia.</p>
+          </div>
+        </div>
+
+        <div id="fase5" class="modal">
+          <div class="modal-content">
+            <span class="close-button" onclick="closePhaseModal('fase5')">&times;</span>
+            <h2>Fase Pré-menstrual</h2>
+            <p>Últimos dias antes da menstruação. Muitas pessoas sentem sintomas da TPM, como irritabilidade, cansaço,
+              inchaço e alterações de humor.</p>
+          </div>
+        </div>
+        <section class="absorventes-section">
+          <h2>Tipos de Absorventes</h2>
+          <p class="absorventes-intro">
+            Existem diversas opções para o período menstrual. Escolha a que melhor se adapta ao seu corpo e rotina
+          </p>
+
+          <div class="absorventes-grid">
+            <div class="absorvente-card" onclick="openPhaseModal('externo')">
+              <h3>Absorvente Externo</h3>
+            </div>
+            <div class="absorvente-card" onclick="openPhaseModal('interno')">
+              <h3>Absorvente Interno (OB)</h3>
+            </div>
+            <div class="absorvente-card" onclick="openPhaseModal('coletor')">
+              <h3>Coletor Menstrual</h3>
+            </div>
+            <div class="absorvente-card" onclick="openPhaseModal('calcinha')">
+              <h3>Calcinha Absorvente</h3>
+            </div>
+            <div class="absorvente-card" onclick="openPhaseModal('disco')">
+              <h3>Disco Menstrual</h3>
+            </div>
+            <div class="absorvente-card" onclick="openPhaseModal('pano')">
+              <h3>Absorvente de Pano</h3>
+            </div>
+          </div>
+        </section>
+        <div id="externo" class="modal">
+          <div class="modal-content">
+            <button class="close-button" onclick="closePhaseModal('externo')">&times;</button>
+            <h2>Absorvente Externo</h2>
+            <p>É o tipo mais tradicional, usado colado na calcinha. Existem versões com ou sem abas, ideais para
+              diferentes fluxos e níveis de conforto.</p>
+            <p><strong>Dica:</strong> troque a cada 3 a 4 horas para evitar odores e infecções.</p>
+          </div>
+        </div>
+
+        <div id="interno" class="modal">
+          <div class="modal-content">
+            <button class="close-button" onclick="closePhaseModal('interno')">&times;</button>
+            <h2>Absorvente Interno (OB)</h2>
+            <p>Inserido na vagina, ele absorve o sangue diretamente dentro do corpo. É discreto e confortável, ótimo
+              para praticar esportes ou ir à praia.</p>
+            <p><strong>Atenção:</strong> deve ser trocado a cada 4 a 8 horas e não deve ser usado durante o sono
+              prolongado.</p>
+          </div>
+        </div>
+
+        <div id="coletor" class="modal">
+          <div class="modal-content">
+            <button class="close-button" onclick="closePhaseModal('coletor')">&times;</button>
+            <h2>Coletor Menstrual</h2>
+            <p>Feito de silicone médico, o coletor é reutilizável e pode durar até 10 anos. Ele coleta o sangue, em vez
+              de absorver, e é mais ecológico e econômico.</p>
+            <p><strong>Dica:</strong> pode ser usado por até 12 horas, dependendo do fluxo.</p>
+          </div>
+        </div>
+
+        <div id="calcinha" class="modal">
+          <div class="modal-content">
+            <button class="close-button" onclick="closePhaseModal('calcinha')">&times;</button>
+            <h2>Calcinha Absorvente</h2>
+            <p>Uma opção reutilizável, confortável e moderna. A calcinha contém camadas absorventes e impermeáveis, que
+              evitam vazamentos e odores.</p>
+            <p><strong>Vantagem:</strong> pode ser lavada e usada novamente, sendo ótima para o meio ambiente.</p>
+          </div>
+        </div>
+
+        <div id="disco" class="modal">
+          <div class="modal-content">
+            <button class="close-button" onclick="closePhaseModal('disco')">&times;</button>
+            <h2>Disco Menstrual</h2>
+            <p>Fino e anatômico, o disco menstrual é inserido próximo ao colo do útero e coleta o sangue. É quase
+              imperceptível e pode ser usado durante relações sexuais.</p>
+            <p><strong>Dica:</strong> também pode ser usado por até 12 horas seguidas.</p>
+          </div>
+        </div>
+
+        <div id="pano" class="modal">
+          <div class="modal-content">
+            <button class="close-button" onclick="closePhaseModal('pano')">&times;</button>
+            <h2>Absorvente de Pano</h2>
+            <p>Feito de tecidos naturais, é uma opção sustentável, respirável e econômica. Deve ser lavado e seco
+              adequadamente após o uso.</p>
+            <p><strong>Vantagem:</strong> reduz o lixo menstrual e evita contato com produtos químicos.</p>
+          </div>
+        </div>
+
+        <div id="customAlert" class="custom-alert hidden">
+          <div class="alert-box">
+            <h2 id="alert-title"></h2>
+            <p id="alert-message"></p>
+            <button id="alert-ok">OK</button>
+          </div>
+        </div>
+
+        <script>
+          function showAlert(title, message) {
+            const alertBox = document.getElementById("customAlert");
+            document.getElementById("alert-title").innerText = title || "Aviso";
+            document.getElementById("alert-message").innerText = message || "";
+            alertBox.classList.remove("hidden");
+
+            document.getElementById("alert-ok").onclick = () => {
+              alertBox.classList.add("hidden");
+            };
+          }
+
+          window.alert = function (message) {
+            showAlert("Alerta", message);
+          };
+        </script>
+        <script>
+          function showConfirm(title, message) {
+            return new Promise((resolve) => {
+              const alertBox = document.getElementById("customAlert");
+              document.getElementById("alert-title").innerText = title || "Confirmação";
+              document.getElementById("alert-message").innerText = message || "";
+
+              document.getElementById("alert-ok").outerHTML = `
+      <div style="display:flex;gap:10px;justify-content:center;">
+        <button id="confirm-yes" style="background:#7c6cff;">Sim</button>
+        <button id="confirm-no" style="background:#ccc;color:#333;">Não</button>
+      </div>
+    `;
+
+              alertBox.classList.remove("hidden");
+
+              document.getElementById("confirm-yes").onclick = () => {
+                alertBox.classList.add("hidden");
+                resetAlertButtons();
+                resolve(true);
+              };
+              document.getElementById("confirm-no").onclick = () => {
+                alertBox.classList.add("hidden");
+                resetAlertButtons();
+                resolve(false);
+              };
+            });
+          }
+
+          function resetAlertButtons() {
+            const alertBox = document.querySelector(".alert-box div");
+            alertBox.innerHTML = `<button id="alert-ok">OK</button>`;
+            document.getElementById("alert-ok").onclick = () => {
+              document.getElementById("customAlert").classList.add("hidden");
+            };
+          }
+        </script>
+        <script src="/js/carousel.js"></script>
+        <script src="/js/user.js"></script>
+</body>
+
+</html>

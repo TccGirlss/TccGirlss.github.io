@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menarca</title>
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <link rel="stylesheet" href="/css/perguntas.css">
+</head>
+
+<body>
+
+  <h2>Com quantos anos teve sua primeira menstruação (menarca)?</h2>
+  <input type="number" id="menarca" placeholder="Idade" value="">
+  <br>
+  <div class="botoes">
+    <div class="btn_back_unique">
+      <button onclick="voltar()">Voltar</button>
+    </div>
+    <div class="btn_next">
+      <button onclick="proxima()">Próxima</button>
+    </div>
+  </div>
+
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const usuarioId = params.get("usuario_id");
+    document.getElementById('menarca').value = localStorage.getItem('menarca') || '';
+
+    function voltar() {
+      window.location.href = 'pergunta2.html?usuario_id=' + usuarioId;
+    }
+
+    function proxima() {
+      localStorage.setItem('menarca', document.getElementById('menarca').value);
+      window.location.href = 'pergunta4.html?usuario_id=' + usuarioId;
+    }
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,333 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Inter", "Segoe UI", Tahoma, sans-serif;
+  background-color: #f8f9fb;
+  color: #2d2d2d;
+  line-height: 1.7;
+  padding-bottom: 60px;
+}
+
+header {
+  background: linear-gradient(135deg, #d8b4f8, #c7a4ff, #d7b5f7);
+  width: 100%;
+  padding: 40px 20px;
+  text-align: center;
+  color: white;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+header p {
+  font-size: 1.05rem;
+  opacity: 0.9;
+}
+
+.ciclo-container {
+  max-width: 820px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+
+.fase {
+  background-color: #fff;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.fase:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.fase summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  cursor: pointer;
+  list-style: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
+}
+
+.fase summary::marker,
+.fase summary::-webkit-details-marker {
+  display: none;
+}
+
+.fase summary::after {
+  content: "›";
+  font-size: 1.2rem;
+  opacity: 0.5;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.fase[open] summary::after {
+  transform: rotate(90deg);
+  opacity: 0.8;
+}
+
+.fase h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: inherit;
+}
+
+.dias {
+  font-size: 0.9rem;
+  font-weight: 500;
+  opacity: 0.7;
+  margin-left: 12px;
+}
+
+.conteudo {
+  padding: 20px 26px 25px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  animation: abrir 0.35s ease;
+}
+
+@keyframes abrir {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.conteudo p {
+  margin: 12px 0;
+  padding-left: 14px;
+  border-left: 3px solid;
+  background: rgba(0, 0, 0, 0.01);
+}
+
+.fase-menstrual summary {
+  background: rgba(153, 102, 255, 0.07);
+  color: #6b4eb5;
+}
+
+.fase-menstrual .conteudo p {
+  border-left-color: #9966ff6e;
+}
+
+.fase-folicular summary {
+  background: rgba(135, 206, 235, 0.1);
+  color: #267b9b;
+}
+
+.fase-folicular .conteudo p {
+  border-left-color: #6fc0dd7a;
+}
+
+.fase-ovulatoria summary {
+  background: rgba(255, 215, 0, 0.08);
+  color: #9b7a00;
+}
+
+.fase-ovulatoria .conteudo p {
+  border-left-color: #e1b5548c;
+}
+
+.fase-lutea summary {
+  background: rgba(255, 127, 80, 0.08);
+  color: #a65b36;
+}
+
+.fase-lutea .conteudo p {
+  border-left-color: #ff7f5090;
+}
+
+footer {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 60px;
+  padding-top: 20px;
+  border-top: 1px solid #ddd;
+}
+
+footer p {
+  font-style: italic;
+  opacity: 0.8;
+}
+
+.btn_voltar {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+}
+
+.btn_voltar button {
+  font-size: 30px;
+  width: 60px;
+  height: 60px;
+  background: #fff9b7;
+  border: 2px solid #eee367;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #d8b4f8;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.btn_voltar button:hover {
+  color:#fff9b7;
+  background: #d8b4f8;
+  border-color:#ab6ce3;
+  transform: translateY(-3px);
+}
+
+.btn_voltar button:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(98, 0, 255, 0.6);
+}
+
+@media (max-width: 768px) {
+  header {
+    padding: 30px 15px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+  }
+  
+  header h1 {
+    font-size: 1.9rem;
+  }
+  
+  header p {
+    font-size: 1rem;
+    padding: 0 10px;
+  }
+  
+  .ciclo-container {
+    margin: 40px auto;
+    padding: 0 15px;
+  }
+  
+  .fase summary {
+    padding: 18px 20px;
+    font-size: 1rem;
+  }
+  
+  .conteudo {
+    padding: 18px 20px 22px;
+  }
+  
+  .btn_voltar {
+    top: 15px;
+    left: 15px;
+  }
+  
+  .btn_voltar button {
+    width: 50px;
+    height: 50px;
+    font-size: 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    padding: 25px 12px;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+  }
+  
+  header h1 {
+    font-size: 1.7rem;
+  }
+  
+  header p {
+    font-size: 0.95rem;
+  }
+  
+  .ciclo-container {
+    margin: 30px auto;
+    padding: 0 12px;
+  }
+  
+  .fase {
+    margin-bottom: 20px;
+    border-radius: 10px;
+  }
+  
+  .fase summary {
+    padding: 16px 18px;
+    font-size: 0.95rem;
+  }
+  
+  .conteudo {
+    padding: 16px 18px 20px;
+  }
+  
+  .conteudo p {
+    padding-left: 12px;
+    font-size: 14px;
+  }
+  
+  .btn_voltar {
+    top: 12px;
+    left: 12px;
+  }
+  
+  .btn_voltar button {
+    width: 45px;
+    height: 45px;
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 360px) {
+  header h1 {
+    font-size: 1.5rem;
+  }
+  
+  header p {
+    font-size: 0.9rem;
+  }
+  
+  .fase summary {
+    padding: 14px 16px;
+    font-size: 0.9rem;
+  }
+  
+  .dias {
+    font-size: 0.85rem;
+    margin-left: 8px;
+  }
+  
+  .conteudo {
+    padding: 14px 16px 18px;
+  }
+  
+  .conteudo p {
+    font-size: 13px;
+    padding-left: 10px;
+  }
+}
+
+

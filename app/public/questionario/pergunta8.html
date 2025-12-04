@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sintomas</title>
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <link rel="stylesheet" href="/css/perguntas.css">
+</head>
+
+<body class="pagina-sintomas">
+
+  <h2>Durante a menstruação, quais desses sintomas você sente?</h2>
+
+  <label><input type="checkbox" value="colica"><span>Cólica</span></label><br>
+  <label><input type="checkbox" value="dor muscular"><span>Dor muscular</span></label><br>
+  <label><input type="checkbox" value="dor de cabeça"><span>Dor de cabeça</span></label><br>
+  <label><input type="checkbox" value="nausea"><span>Náusea</span></label><br>
+  <label><input type="checkbox" value="inchaco"><span>Inchaço</span></label><br>
+  <label><input type="checkbox" value="indisposicao"><span>Indisposição</span></label><br>
+  <label><input type="checkbox" value="acne"><span>Acne</span></label><br>
+  <label><input type="checkbox" value="aumento urinario"><span>Aumento urinário</span></label><br>
+  <label><input type="checkbox" value="diarreia"><span>Diarreia</span></label><br>
+  <label><input type="checkbox" value="alteracao de humor"><span>Alteração de humor</span></label><br>
+
+
+  <div class="btn_back_unique">
+    <button onclick="voltar()">Voltar</button>
+  </div>
+  <div class="btn_next">
+    <button onclick="proxima()">Finalizar</button>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const usuarioId = params.get("usuario_id");
+
+    function voltar() {
+      window.location.href = 'pergunta7.html?usuario_id=' + usuarioId;
+    }
+
+    function proxima() {
+      const sintomas = [];
+      document.querySelectorAll('input[type="checkbox"]:checked').forEach(cb => sintomas.push(cb.value));
+      localStorage.setItem('sintomas', sintomas.join(','));
+      window.location.href = 'fim.html?usuario_id=' + usuarioId;
+    }
+  </script>
+
+</body>
+
+</html>

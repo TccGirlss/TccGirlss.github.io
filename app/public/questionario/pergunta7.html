@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anticoncepcional</title>
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <link rel="stylesheet" href="/css/perguntas.css">
+</head>
+
+<body>
+
+  <h2>Você usa anticoncepcional?</h2>
+  <div class="selecao">
+    <button onclick="responder(true)">Sim</button>
+    <button onclick="responder(false)">Não</button>
+  </div>
+  <br>
+  <div class="btn_back_unique">
+    <button onclick="voltar()">Voltar</button>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const usuarioId = params.get("usuario_id");
+
+    function voltar() {
+      window.location.href = 'pergunta6.html?usuario_id=' + usuarioId;
+    }
+
+    function responder(valor) {
+      localStorage.setItem('usa_anticoncepcional', valor);
+      window.location.href = 'pergunta8.html?usuario_id=' + usuarioId;
+    }
+  </script>
+
+
+</body>
+
+</html>

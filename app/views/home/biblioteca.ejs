@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Girlslly - Biblioteca</title>
+  <link rel="stylesheet" href="/css/biblioteca.css">
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="/js/menu.js"></script>
+</head>
+
+<body>
+  <aside id="sidebar" class="collapsed" aria-label="Menu lateral">
+
+    <button id="sidebarToggle" class="hamburger" aria-label="Abrir menu">
+      <img src="/img/menu.png" alt="Menu">
+    </button>
+
+    <div class="logo">
+      <img src="/img/logo1.png" alt="Girlssly Logo">
+    </div>
+
+    <ul class="menu">
+      <a href="/inicio" class="menu-link">
+        <span class="icon"><img src="/img/home.png" alt="Início"></span>
+        <span class="label">Início</span>
+      </a>
+      </li>
+
+      <li>
+      <li class="active">
+        <a href="/biblioteca.ejs" class="menu-link">
+          <span class="icon"><img src="/img/biblioteca.png" alt="Bibliotecas"></span>
+          <span class="label">Bibliotecas</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="/html/ciclo.html" class="menu-link">
+          <span class="icon"><img src="/img/ciclo.png" alt="Ciclos"></span>
+          <span class="label">Ciclos</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="/html/config.html" class="menu-link">
+          <span class="icon"><img src="/img/config.png" alt="Configurações"></span>
+          <span class="label">Configurações</span></a>
+      </li>
+
+      <li>
+        <a href="/html/faq.html" class="menu-link">
+          <span class="icon"><img src="/img/faq.png" alt="Notificações"></span>
+          <span class="label">FAQ</span>
+        </a>
+      </li>
+
+      <li onclick="logout()">
+        <span class="icon"><img src="/img/sair.png" alt="Sair"></span>
+        <span class="label">Sair</span>
+      </li>
+    </ul>
+  </aside>
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <div class="main-content">
+    <header class="topbar-static">
+      <div class="topbar-left"></div>
+      <div class="user-profile">
+        <div class="avatar">👤</div>
+        <div class="user-text">
+          <div class="greeting">Bem-vinda</div>
+          <div class="name">Carregando...</div>
+        </div>
+      </div>
+    </header>
+
+    <header class="topbar-fixed">
+      <div class="topbar-left"></div>
+      <div class="user-profile">
+        <div class="avatar">👤</div>
+        <div class="user-text">
+          <div class="greeting">Bem-vinda</div>
+          <div class="name">Carregando...</div>
+        </div>
+      </div>
+    </header>
+
+    <header class="topbar-fixed">
+      <div class="topbar-left"></div>
+      <div class="user-profile">
+        <div class="avatar">👤</div>
+        <div class="user-text">
+          <div class="greeting">Bem-vinda</div>
+          <div class="name">Carregando...</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="content-inner">
+      <div class="library-container">
+        <div class="library-header">
+          <h1>Livros e Artigos</h1>
+          <p>Descubra e explore nossa coleção de livros e artigos sobre saúde feminina e bem-estar</p>
+        </div>
+
+        <div class="books-grid">
+
+          <div class="book-card">
+            <h3>O papel da enfermagem na desmistificação de estigmas acerca da menstruação.</h3>
+            <p>Aborda a importância da atuação dos profissionais de enfermagem na promoção da educação em saúde e na
+              desconstrução de preconceitos relacionados ao ciclo menstrual.</p>
+            <a href="https://repositorio.pucgoias.edu.br/jspui/bitstream/123456789/4163/1/O%20papel%20da%20enfermagem%20na%20desmistificacao%20de%20estigmas%20acerca%20da%20menstruacao.pdf"
+              target="_blank" class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card">
+            <h3>A Importância de Ações Educativas da Enfermagem</h3>
+            <p>A importância das ações educativas da enfermagem na promoção de informações sobre o autoconhecimento das
+              mulheres sobre o ciclo menstrual.</p>
+            <a href="https://periodicorease.pro.br/rease/article/view/11442/5101" target="_blank" class="read-more">Ler
+              Mais</a>
+          </div>
+
+          <div class="book-card">
+            <h3>Educação em Saúde da Mulher: Integralidade e Empoderamento</h3>
+            <p>A importância da educação em saúde para promover o bem-estar integral das mulheres.</p>
+            <a href="https://repositorio.ufmg.br/server/api/core/bitstreams/06452452-8cd8-410a-a61c-f532927b1efb/content"
+              target="_blank" class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card">
+            <h3>Cartilha de Educação Menstrual</h3>
+            <p>Guia informativo que visa desmistificar a menstruação e promover uma compreensão mais saudável sobre o
+              ciclo menstrual.</p>
+            <a href="https://repositorio.ufsm.br/bitstream/handle/1/32300/CartilhaEduca%C3%A7%C3%A3oMenstrual.pdf?sequence=1&isAllowed=y"
+              target="_blank" class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card">
+            <h3>A Educação Menstrual Como Ferramenta De Alcance À Dignidade Menstrual </h3>
+            <p>Uma análise de políticas públicas de
+              combate à pobreza menstrual no Brasil.</p>
+            <a href="https://repositorio.ufc.br/bitstream/riufc/78963/1/2024_tcc_alsmviana.pdf" target="_blank"
+              class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card">
+            <h3>Alguns olhares sobre a menstruação</h3>
+            <p>Um olhar histórico e social sobre as mulheres e seus ciclos.</p>
+            <a href="https://www.redalyc.org/pdf/3210/321081233011.pdf" target="_blank" class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card new-card">
+            <h3>A Precariedade Menstrual: Um Tabu a Ser Quebrado</h3>
+            <p>Artigo sobre o desafio da precariedade menstrual e a necessidade de quebrar o tabu social que a envolve.</p>
+            <a href="https://pdfs.semanticscholar.org/0e34/b667e3d47189f8a4b5e0ffcf811ee22ec6fc.pdf" target="_blank"
+              class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card new-card">
+            <h3>Pobreza Menstrual e a Tributação dos Absorventes</h3>
+            <p>Análise da relação entre a pobreza menstrual e o impacto da tributação sobre os produtos de higiene menstrual no Brasil.</p>
+            <a href="https://etecspgov-my.sharepoint.com/personal/gabriella_xavier4_etec_sp_gov_br/Documents/Arquivos%20de%20Chat%20do%20Microsoft%20Teams/POBREZA_MENSTRUAL_E_A_TRIBUTA%C3%87%C3%83O_DOS_ABSORVENTES.pdf"
+              target="_blank" class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card new-card">
+            <h3>Transformação da Percepção da Menstruação Entre Gerações</h3>
+            <p>Estudo sobre como a visão e o entendimento da menstruação mudaram ao longo das diferentes gerações.</p>
+            <a href="https://revistas.uece.br/index.php/tensoesmundiais/article/view/3435" target="_blank"
+              class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card new-card">
+            <h3>Políticas Públicas Sobre a Saúde Menstrual no Brasil</h3>
+            <p>Discussão sobre as políticas públicas existentes (ou a falta delas) e a influência dos movimentos sociais da menstruação.</p>
+            <a href="https://www.scielo.br/j/mediacoes/a/9s5cngjvkWjxkSjbKjCZ6Jm/?format=pdf&lang=pt" target="_blank"
+              class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card new-card">
+            <h3>Empoderando Mulheres com Tecnologias Sociais: Absorventes Reutilizáveis</h3>
+            <p>Foco na produção de absorventes reutilizáveis como forma de empoderamento e combate à pobreza menstrual.</p>
+            <a href="https://observinter.al.org.br/index.php/siti/article/view/195/242" target="_blank"
+              class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card new-card">
+            <h3>Desafios no Combate à Pobreza Menstrual</h3>
+            <p>Revisão integrativa sobre os principais desafios enfrentados no combate à pobreza e dignidade menstrual.</p>
+            <a href="https://pdfs.semanticscholar.org/6f27/a318f6667a447577cc28ad1129780ebe55bc.pdf" target="_blank"
+              class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card new-card">
+            <h3>Relatório UNICEF/UNFPA: Pobreza Menstrual no Brasil (2021)</h3>
+            <p>Panorama da realidade menstrual vivida por meninas brasileiras, detalhando desigualdades e violações de direitos (como acesso a saneamento e itens básicos).</p>
+            <a href="https://www.unicef.org/brazil/media/14456/file/dignidade-menstrual_relatorio-unicef-unfpa_maio2021.pdf"
+              target="_blank" class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card new-card">
+            <h3>Análise do Programa de Proteção e Promoção da Saúde Menstrual (Lei 14.214/2021)</h3>
+            <p>Aborda os desafios de implementação do programa governamental e os impactos na dignidade menstrual das pessoas que menstruam no Brasil.</p>
+            <a href="https://cienciaesaudecoletiva.com.br/artigos/desafios-as-praticas-menstruais-no-brasil-uma-analise-do-programa-de-protecao-e-promocao-da-saude-menstrual/19729"
+              target="_blank" class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card new-card">
+            <h3>Dignidade Menstrual e o Debate nas Redes Sociais</h3>
+            <p>Pesquisa que analisa a força e a repercussão do tema da dignidade menstrual nas plataformas digitais e o engajamento gerado sobre políticas públicas.</p>
+            <a href="https://agenciabrasil.ebc.com.br/saude/noticia/2025-11/pesquisa-aponta-forca-do-debate-sobre-dignidade-menstrual-nas-redes"
+              target="_blank" class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card new-card">
+            <h3>Injustiça Menstrual e a Licença por Dor (Projetos de Lei)</h3>
+            <p>Discussão sobre o reconhecimento da menstruação como aspecto de saúde e os projetos de lei para garantir licença às mulheres com sintomas graves associados ao fluxo.</p>
+            <a href="https://www.cadernos.prodisa.fiocruz.br/index.php/cadernos/article/view/1324/1783" target="_blank"
+              class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card new-card">
+            <h3>Pobreza Menstrual: Vulnerabilidade Social, Medidas Governamentais e Luta por Dignidade</h3>
+            <p>Artigo da UFSM que discute a pobreza menstrual como vulnerabilidade social e as ações de governo para garantir a dignidade.</p>
+            <a href="https://www.ufsm.br/pro-reitorias/pre/observatorio-de-direitos-humanos/2023/09/27/pobreza-menstrual-vulnerabilidade-social-medidas-governamentais-e-a-luta-pela-dignidade"
+              target="_blank" class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card new-card">
+            <h3>O Tabu da Menstruação Reforçado pelas Propagandas de Absorvente (2015)</h3>
+            <p>Análise de como a publicidade de absorventes contribui para reforçar o tabu e os estigmas sociais em torno do ciclo menstrual.</p>
+            <a href="https://portalintercom.org.br/anais/nacional2015/resumos/R10-0436-1.pdf" target="_blank"
+              class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card new-card">
+            <h3>Pobreza Menstrual: Uma Análise a partir de Amartya Sen</h3>
+            <p>Relaciona a pobreza menstrual com a teoria da "condição de agente" de Amartya Sen, discutindo desenvolvimento e bem-estar feminino.</p>
+            <a href="https://www.indexlaw.org/index.php/revistaddsus/article/view/8407" target="_blank"
+              class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card new-card">
+            <h3>O Backlash Antidignidade Menstrual no Executivo Brasileiro</h3>
+            <p>Artigo que critica e analisa o retrocesso e os vetos à legislação de dignidade menstrual no Brasil, considerando o contexto de escassez de recursos.</p>
+            <a href="https://www.scielo.br/j/rdgv/a/YyXRMjk6vP7hBDQwm8P7fTq/" target="_blank"
+              class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card new-card">
+            <h3>Pobreza Menstrual: Aspectos Socioeconômicos e Culturais</h3>
+            <p>Estudo que examina a natureza multidimensional da pobreza menstrual, considerando fatores de renda, cultura e acesso a itens básicos.</p>
+            <a href="https://www.rsdjournal.org/index.php/rsd/article/view/5584" target="_blank"
+              class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card new-card">
+            <h3>Guia do Programa Dignidade Menstrual (Gov.br)</h3>
+            <p>Cartilha oficial do Governo Federal com as principais perguntas e respostas sobre o Programa Dignidade Menstrual e o acesso gratuito a absorventes pelo Farmácia Popular.</p>
+            <a href="https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/cartilhas/2024/dignidademenstrual"
+              target="_blank" class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card new-card">
+            <h3>Discursos sobre a Pobreza Menstrual em Materialidades Jornalísticas Digitais</h3>
+            <p>Análise de como a pobreza menstrual é abordada pela mídia digital e a formação do tema como objeto de interesse político e social.</p>
+            <a href="https://revista.ioles.com.br/boca/index.php/revista/article/view/1460" target="_blank"
+              class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card new-card">
+            <h3>Novas Políticas Públicas Precisam de um Olhar Abrangente (Jornal da USP)</h3>
+            <p>Artigo da USP que defende a necessidade de políticas públicas mais amplas, que vão além da distribuição de absorventes para solucionar a pobreza menstrual.</p>
+            <a href="https://jornal.usp.br/radio-usp/novas-politicas-publicas-precisam-de-um-olhar-abrangente-para-solucionar-a-pobreza-menstrual/"
+              target="_blank" class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card newest-card">
+            <h3>Invisibilidade e Políticas Públicas para Dignidade Menstrual (2021)</h3>
+            <p>Monografia que estuda a pobreza menstrual, sua relação com os direitos humanos, a desigualdade de gênero e o papel das políticas públicas no combate à precariedade menstrual.</p>
+            <a href="https://repositorio.ufc.br/handle/riufc/68272" target="_blank" class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card newest-card">
+            <h3>Pobreza Menstrual e a Dignidade das Pessoas que Menstruam (2025)</h3>
+            <p>Artigo recente que traz conceitos sobre menstruação, pobreza e dignidade menstrual, apontando dados e possíveis soluções para o problema no Brasil.</p>
+            <a href="https://revistas.unaerp.br/rci/article/view/3115" target="_blank" class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card newest-card">
+            <h3>O Impacto da Pobreza Menstrual na Saúde das Pessoas que Menstruam</h3>
+            <p>Estudo que analisa as consequências da privação de itens de higiene menstrual na saúde física e psíquica, reforçando o direito à dignidade.</p>
+            <a href="https://rebesbe.emnuvens.com.br/revista/article/view/27" target="_blank" class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card newest-card">
+            <h3>Revisão de Escopo sobre Pobreza Menstrual (Period Poverty: a scoping review)</h3>
+            <p>Revisão de 23 estudos para mapear evidências, perspectivas e lacunas sobre a pobreza menstrual, abordando seus fatores, impactos e estratégias de enfrentamento.</p>
+            <a href="https://www.scielo.br/j/reben/a/N5xf9V7K6gWnD5CWwBRNGHS/?lang=pt" target="_blank"
+              class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card newest-card">
+            <h3>A Relação entre a Pobreza Menstrual e a Educação: Impactos e Soluções</h3>
+            <p>Análise aprofundada sobre como a falta de acesso à higiene menstrual afeta a frequência e o desempenho escolar de meninas e adolescentes no Brasil.</p>
+            <a href="https://remici.com.br/index.php/revista/article/view/624" target="_blank" class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card newest-card">
+            <h3>Recomendações para Implementação de Iniciativas de Promoção da Dignidade Menstrual (UNFPA)</h3>
+            <p>Documento do Fundo de População das Nações Unidas com recomendações detalhadas para ações e políticas públicas, incluindo um olhar interseccional sobre o tema.</p>
+            <a href="https://brazil.unfpa.org/sites/default/files/pub-pdf/recomendacoes-dig-menstrual_v2.pdf" target="_blank"
+              class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card newest-card">
+            <h3>Pobreza Menstrual: Desafios e Perspectivas para a Promoção da Saúde (2020)</h3>
+            <p>Estudo que detalha os desafios socioeconômicos da pobreza menstrual e propõe perspectivas para a promoção integral da saúde das mulheres no contexto brasileiro.</p>
+            <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwjG_4W45d2FAxX2pZUCHZ4cDoAQFnoECAkQAw&url=https%3A%2F%2Fwww.editorafiocruz.com.br%2Fpdf%2F9786557342686-2-Pobreza%2520menstrual%2520no%2520Brasil%2520-%2520Desafios%2520e%2520perspectivas%2520para%2520a%2520promo%25C3%25A7%25C3%25A3o%2520da%2520sa%25C3%25BAde%2520das%2520mulheres.pdf&usg=AOvVaw2s_8X6QyS0O5H0gH8S_8p1"
+              target="_blank" class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card newest-card">
+            <h3>Gênero e Desigualdades: Limites da Democracia no Brasil (2018)</h3>
+            <p>Embora mais amplo, este livro aborda as desigualdades de gênero que servem de base para a pobreza menstrual, sendo uma referência essencial para o contexto político e social.</p>
+            <a href="https://www.scielo.br/j/mediacoes/a/9s5cngjvkWjxkSjbKjCZ6Jm/?lang=pt" target="_blank"
+              class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card newest-card">
+            <h3>O Papel do Saneamento Básico na Dignidade Menstrual</h3>
+            <p>Artigo que discute a pauta da dignidade menstrual como inerente ao acesso à água potável e saneamento básico, direitos fundamentais negligenciados no Brasil.</p>
+            <a href="https://www.scielo.br/j/mediacoes/a/9s5cngjvkWjxkSjbKjCZ6Jm/?lang=pt" target="_blank"
+              class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card newest-card">
+            <h3>A Importância do Diálogo sem Estigmas Antes da Primeira Menstruação</h3>
+            <p>Estudo que ressalta a importância da educação menstrual precoce e sem estigmas para garantir que as meninas tenham um desenvolvimento saudável e informado.</p>
+            <a href="https://rsdjournal.org/rsd/article/download/45584/36354/475096" target="_blank"
+              class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card newest-card">
+            <h3>Pobreza Menstrual em Situação de Vulnerabilidade Social: Revisão Integrativa</h3>
+            <p>Revisão que sintetiza o conhecimento sobre os desafios no combate à pobreza menstrual, destacando a situação de mulheres e meninas em vulnerabilidade extrema.</p>
+            <a href="https://rsdjournal.org/rsd/article/download/45584/36354/475096" target="_blank"
+              class="read-more">Ler Mais</a>
+          </div>
+
+          <div class="book-card newest-card">
+            <h3>Políticas Públicas e Equidade de Gênero (2022)</h3>
+            <p>Artigo que aborda como as políticas públicas, incluindo as de saúde menstrual, contribuem (ou falham) para o combate à desigualdade e para a equidade de gênero.</p>
+            <a href="http://www.antinomias.periodikos.com.br/article/60e39095a9539505a0471774/pdf/antinomias-2-1-140.pdf"
+              target="_blank" class="read-more">Ler Mais</a>
+          </div>
+
+        </div>
+      </div>
+    </main>
+  </div>
+
+</body>
+
+</html>

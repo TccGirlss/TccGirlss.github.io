@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Esqueci minha senha</title>
+  <link rel="stylesheet" href="/css/recuperarsenha.css">
+  <link rel="stylesheet" href="/css/mensagens.css">
+</head>
+
+<body>
+
+  <h2>Recuperar senha</h2>
+
+  <%- include('mensagem', { mensagem, erro, aviso: typeof aviso !=='undefined' ? aviso : null }) %>
+
+    <form method="POST" action="/esqueci">
+      <label for="email">Seu e-mail:</label><br>
+      <input type="email" name="email" placeholder="Email" required>
+      <button type="submit">Enviar link</button>
+    </form>
+
+    <a href="/login">Voltar ao login</a>
+</body>
+
+</html>

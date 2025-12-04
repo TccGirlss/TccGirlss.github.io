@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Girlslly - Ciclo</title>
+  <link rel="stylesheet" href="/css/ciclo.css" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="/js/menu.js"></script>
+  
+  <!-- Prevenir cache do script -->
+  <script>
+    // Limpar flags anteriores para garantir carregamento fresco
+    if (window.ciclosTelaInicializado) {
+      console.log("Resetando flags anteriores...");
+      delete window.ciclosTelaInicializado;
+    }
+  </script>
+</head>
+
+<body>
+  <aside id="sidebar" class="collapsed" aria-label="Menu lateral">
+
+    <button id="sidebarToggle" class="hamburger" aria-label="Abrir menu">
+      <img src="/img/menu.png" alt="Menu">
+    </button>
+
+    <div class="logo">
+      <img src="/img/logo1.png" alt="Girlssly Logo">
+    </div>
+
+    <ul class="menu">
+      <li>
+        <a href="/inicio" class="menu-link">
+          <span class="icon"><img src="/img/home.png" alt="Início"></span>
+          <span class="label">Início</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="/biblioteca.ejs" class="menu-link">
+          <span class="icon"><img src="/img/biblioteca.png" alt="Bibliotecas"></span>
+          <span class="label">Bibliotecas</span>
+        </a>
+      </li>
+
+      <li class="active">
+        <a href="/html/ciclo.html" class="menu-link">
+          <span class="icon"><img src="/img/ciclo.png" alt="Ciclos"></span>
+          <span class="label">Ciclos</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="/html/config.html" class="menu-link">
+          <span class="icon"><img src="/img/config.png" alt="Configurações"></span>
+          <span class="label">Configurações</span></a>
+      </li>
+
+      <li>
+        <a href="/html/faq.html" class="menu-link">
+          <span class="icon"><img src="/img/faq.png" alt="Dúvidas Frequentes"></span>
+          <span class="label">FAQ</span>
+        </a>
+      </li>
+
+      <li onclick="logout()">
+        <span class="icon"><img src="/img/sair.png" alt="Sair"></span>
+        <span class="label">Sair</span>
+      </li>
+    </ul>
+  </aside>
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <div class="main-content">
+    <header class="topbar-static">
+      <div class="topbar-left"></div>
+      <div class="user-profile">
+        <div class="avatar">👤</div>
+        <div class="user-text">
+          <div class="greeting">Bem-vinda</div>
+          <div class="name">Carregando...</div>
+        </div>
+      </div>
+    </header>
+
+    <header class="topbar-fixed">
+      <div class="topbar-left"></div>
+      <div class="user-profile">
+        <div class="avatar">👤</div>
+        <div class="user-text">
+          <div class="greeting">Bem-vinda</div>
+          <div class="name">Carregando...</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="cycle-wrapper">
+      <h1 class="cycle-title">Histórico de Ciclos</h1>
+      <p class="cycle-subtitle">Acompanhe seus ciclos ao longo dos meses</p>
+
+      <div id="lista-ciclos" class="cycle-list">
+        <!-- Os ciclos serão carregados aqui pelo JavaScript -->
+      </div>
+
+      <div class="cycle-actions">
+        <button onclick="recarregarCiclos()" class="btn-reload" aria-label="Recarregar ciclos">
+          🔄 Recarregar
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Carregar o script de ciclos por último -->
+  <script src="/js/ciclotela.js?v=1.1"></script>
+
+  <script>
+    // Carregar informações do usuário
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('/api/usuario/info')
+        .then(res => res.json())
+        .then(usuario => {
+          if (usuario.nome) {
+            document.querySelectorAll('.user-text .name').forEach(el => {
+              el.textContent = usuario.nome;
+            });
+          }
+        })
+        .catch(err => {
+          console.error('Erro ao carregar informações do usuário:', err);
+          document.querySelectorAll('.user-text .name').forEach(el => {
+            el.textContent = 'Usuária';
+          });
+        });
+    });
+
+    // Função de logout (se não estiver em menu.js)
+    if (typeof logout !== 'function') {
+      window.logout = function() {
+        Swal.fire({
+          title: 'Sair',
+          text: 'Tem certeza que deseja sair?',
+          icon: 'question',
+          showCancelButton: true,
+          confirmButtonText: 'Sim, sair',
+          cancelButtonText: 'Cancelar'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = '/logout';
+          }
+        });
+      };
+    }
+  </script>
+
+</body>
+
+</html>

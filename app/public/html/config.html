@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Girlslly - Configurações de Perfil</title>
+  <link rel="stylesheet" href="/css/config.css">
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="/js/menu.js"></script>
+</head>
+
+<body>
+  <aside id="sidebar" class="collapsed" aria-label="Menu lateral">
+    <button id="sidebarToggle" class="hamburger" aria-label="Abrir menu">
+      <img src="/img/menu.png" alt="Menu">
+    </button>
+    <div class="logo">
+      <img src="/img/logo1.png" alt="Girlssly Logo">
+    </div>
+    <ul class="menu">
+      <li>
+        <a href="/inicio" class="menu-link">
+          <span class="icon"><img src="/img/home.png" alt="Início"></span>
+          <span class="label">Início</span>
+        </a>
+      </li>
+      <li>
+        <a href="/biblioteca.ejs" class="menu-link">
+          <span class="icon"><img src="/img/biblioteca.png" alt="Bibliotecas"></span>
+          <span class="label">Bibliotecas</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="/html/ciclo.html" class="menu-link">
+          <span class="icon"><img src="/img/ciclo.png" alt="Ciclos"></span>
+          <span class="label">Ciclos</span>
+        </a>
+      </li>
+
+      <li class="active">
+        <a href="/html/config.html" class="menu-link">
+          <span class="icon"><img src="/img/config.png" alt="Configurações"></span>
+          <span class="label">Configurações</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="/html/faq.html" class="menu-link">
+          <span class="icon"><img src="/img/faq.png" alt="Notificações"></span>
+          <span class="label">FAQ</span>
+        </a>
+      </li>
+
+      <li onclick="logout()">
+        <span class="icon"><img src="/img/sair.png" alt="Sair"></span>
+        <span class="label">Sair</span>
+      </li>
+    </ul>
+  </aside>
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <div class="main-content">
+    <header class="topbar-static">
+      <div class="topbar-left"></div>
+      <div class="user-profile">
+        <div class="avatar">👤</div>
+        <div class="user-text">
+          <div class="greeting">Bem-vinda</div>
+          <div class="name">Carregando...</div>
+        </div>
+      </div>
+    </header>
+
+    <header class="topbar-fixed">
+      <div class="topbar-left"></div>
+      <div class="user-profile">
+        <div class="avatar">👤</div>
+        <div class="user-text">
+          <div class="greeting">Bem-vinda</div>
+          <div class="name">Carregando...</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="content-inner">
+      <div class="profile-container">
+        <div class="profile-header">
+          <h1>Minha Conta</h1>
+          <p>Gerencie suas informações pessoais e preferências</p>
+        </div>
+
+        <div id="successMessage" class="success-message"></div>
+        <div id="errorMessage" class="error-message"></div>
+
+        <div class="profile-section">
+          <h2>SOBRE MIM</h2>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="faixa_etaria">Faixa etária</label>
+              <select id="faixa_etaria" name="faixa_etaria">
+                <option value="">Selecione</option>
+                <option value="10-16">10 à 16</option>
+                <option value="17-25">17 à 25 anos</option>
+                <option value="26-35">26 à 35 anos</option>
+                <option value="36-45">36 à 45 anos</option>
+                <option value="45+">45+ anos</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="peso">Peso (kg)</label>
+              <input type="number" id="peso" name="peso" step="0.1" min="0">
+            </div>
+
+            <div class="form-group">
+              <label for="altura">Altura (cm)</label>
+              <input type="number" id="altura" name="altura" min="0">
+            </div>
+
+            <div class="form-group">
+              <label for="menarca">Idade da primeira menstruação (menarca)</label>
+              <input type="number" id="menarca" name="menarca" min="8" max="20">
+            </div>
+
+            <div class="form-group">
+              <label>Ciclo regular</label>
+              <div class="selecao" id="ciclo_regular_selecao">
+                <button type="button" onclick="selecionarCicloRegular(true)">Sim</button>
+                <button type="button" onclick="selecionarCicloRegular(false)">Não</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="duracao_menstruacao">Duração da menstruação</label>
+              <select id="duracao_menstruacao" name="duracao_menstruacao">
+                <option value="">Selecione</option>
+                <option value="3">Até 3 dias</option>
+                <option value="5">Até 5 dias</option>
+                <option value="7">Até 7 dias</option>
+                <option value="9">Até 9 dias</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="intensidade_fluxo">Intensidade do fluxo</label>
+              <select id="intensidade_fluxo" name="intensidade_fluxo">
+                <option value="">Selecione</option>
+                <option value="leve">Leve</option>
+                <option value="medio">Médio</option>
+                <option value="intenso">Intenso</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Uso de anticoncepcional</label>
+              <div class="selecao" id="usa_anticoncepcional_selecao">
+                <button type="button" onclick="selecionarAnticoncepcional(true)">Sim</button>
+                <button type="button" onclick="selecionarAnticoncepcional(false)">Não</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="profile-section">
+          <h2>INFORMAÇÕES PESSOAIS</h2>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="nome">Nome</label>
+              <input type="text" id="nome" name="nome">
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email">
+            </div>
+
+            <div class="form-group">
+              <label for="telefone">Telefone</label>
+              <input type="tel" id="telefone" name="telefone" placeholder="(11) 98765-4321">
+              <div class="info-text">Adicione seu telefone para receber lembretes</div>
+            </div>
+
+            <div class="form-group">
+              <label for="senha">Nova Senha</label>
+              <input type="password" id="senha" name="senha" placeholder="Deixe em branco para manter a atual">
+              <div class="info-text">Mínimo de 6 caracteres</div>
+            </div>
+
+            <div class="form-group">
+              <label for="confirmar_senha">Confirmar Nova Senha</label>
+              <input type="password" id="confirmar_senha" name="confirmar_senha">
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="save-button" onclick="salvarAlteracoes()">Salvar Alterações</button>
+      </div>
+    </main>
+  </div>
+
+  <div id="successPopup" class="popup-overlay">
+    <div class="popup success">
+      <div class="popup-icon">✓</div>
+      <div class="popup-title">Sucesso!</div>
+      <div class="popup-message" id="successPopupMessage"></div>
+      <button class="popup-close" onclick="fecharPopup('successPopup')">Fechar</button>
+    </div>
+  </div>
+
+  <div id="errorPopup" class="popup-overlay">
+    <div class="popup error">
+      <div class="popup-icon">✕</div>
+      <div class="popup-title">Erro!</div>
+      <div class="popup-message" id="errorPopupMessage"></div>
+      <button class="popup-close" onclick="fecharPopup('errorPopup')">Fechar</button>
+    </div>
+  </div>
+
+  <script>
+    let cicloRegularSelecionado = null;
+    let usaAnticoncepcionalSelecionado = null;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      carregarDadosUsuario();
+      carregarNomeUsuario();
+    });
+
+    function carregarNomeUsuario() {
+      fetch('/api/usuario/perfil')
+        .then(response => response.json())
+        .then(data => {
+          if (data.success && data.usuario) {
+            const nomeElements = document.querySelectorAll('.user-text .name');
+            nomeElements.forEach(element => {
+              element.textContent = data.usuario.nome || 'Usuária';
+            });
+          }
+        })
+        .catch(error => {
+          console.error('Erro ao carregar nome:', error);
+        });
+    }
+
+    function carregarDadosUsuario() {
+      fetch('/api/usuario/perfil')
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            preencherFormulario(data.usuario);
+          } else {
+            mostrarErro('Erro ao carregar dados do usuário');
+          }
+        })
+        .catch(error => {
+          console.error('Erro:', error);
+          mostrarErro('Erro ao carregar dados do usuário');
+          carregarDadosLocalStorage();
+        });
+    }
+
+    function preencherFormulario(usuario) {
+      document.getElementById('nome').value = usuario.nome || '';
+      document.getElementById('email').value = usuario.email || '';
+      document.getElementById('telefone').value = usuario.telefone || '';
+
+      if (usuario.questionario) {
+        const q = usuario.questionario;
+
+        document.getElementById('faixa_etaria').value = q.faixa_etaria || '';
+        document.getElementById('peso').value = q.peso || '';
+        document.getElementById('altura').value = q.altura || '';
+        document.getElementById('menarca').value = q.menarca || '';
+
+        if (q.ciclo_regular !== null && q.ciclo_regular !== undefined) {
+          selecionarCicloRegular(q.ciclo_regular);
+        }
+
+        document.getElementById('duracao_menstruacao').value = q.duracao_menstruacao || '';
+        document.getElementById('intensidade_fluxo').value = q.intensidade_fluxo || '';
+
+        if (q.usa_anticoncepcional !== null && q.usa_anticoncepcional !== undefined) {
+          selecionarAnticoncepcional(q.usa_anticoncepcional);
+        }
+      } else {
+        carregarDadosLocalStorage();
+      }
+    }
+
+    function carregarDadosLocalStorage() {
+      const faixaEtaria = localStorage.getItem('faixa_etaria');
+      const peso = localStorage.getItem('peso');
+      const altura = localStorage.getItem('altura');
+      const menarca = localStorage.getItem('menarca');
+      const cicloRegular = localStorage.getItem('ciclo_regular');
+      const duracaoMenstruacao = localStorage.getItem('duracao_menstruacao');
+      const intensidadeFluxo = localStorage.getItem('intensidade_fluxo');
+      const usaAnticoncepcional = localStorage.getItem('usa_anticoncepcional');
+
+      if (faixaEtaria) document.getElementById('faixa_etaria').value = faixaEtaria;
+      if (peso) document.getElementById('peso').value = peso;
+      if (altura) document.getElementById('altura').value = altura;
+      if (menarca) document.getElementById('menarca').value = menarca;
+
+      if (cicloRegular !== null && cicloRegular !== undefined) {
+        const isCicloRegular = cicloRegular === 'true';
+        selecionarCicloRegular(isCicloRegular);
+      }
+
+      if (duracaoMenstruacao) document.getElementById('duracao_menstruacao').value = duracaoMenstruacao;
+      if (intensidadeFluxo) document.getElementById('intensidade_fluxo').value = intensidadeFluxo;
+
+      if (usaAnticoncepcional !== null && usaAnticoncepcional !== undefined) {
+        const isUsaAnticoncepcional = usaAnticoncepcional === 'true';
+        selecionarAnticoncepcional(isUsaAnticoncepcional);
+      }
+    }
+
+    function selecionarCicloRegular(valor) {
+      cicloRegularSelecionado = valor;
+      const botoes = document.querySelectorAll('#ciclo_regular_selecao button');
+
+      botoes.forEach(botao => botao.classList.remove('active'));
+
+      if (valor === true) botoes[0].classList.add('active');
+      else if (valor === false) botoes[1].classList.add('active');
+    }
+
+    function selecionarAnticoncepcional(valor) {
+      usaAnticoncepcionalSelecionado = valor;
+      const botoes = document.querySelectorAll('#usa_anticoncepcional_selecao button');
+
+      botoes.forEach(botao => botao.classList.remove('active'));
+
+      if (valor === true) botoes[0].classList.add('active');
+      else if (valor === false) botoes[1].classList.add('active');
+    }
+
+    function salvarAlteracoes() {
+      const nome = document.getElementById('nome').value.trim();
+      const email = document.getElementById('email').value.trim();
+
+      if (!nome) return mostrarErro('O campo nome é obrigatório');
+      if (!email) return mostrarErro('O campo email é obrigatório');
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) return mostrarErro('Por favor, insira um email válido');
+
+      const senha = document.getElementById('senha').value;
+      const confirmarSenha = document.getElementById('confirmar_senha').value;
+
+      if (senha && senha !== confirmarSenha) return mostrarErro('As senhas não coincidem');
+      if (senha && senha.length < 6) return mostrarErro('A senha deve ter no mínimo 6 caracteres');
+
+      const dados = {
+        nome,
+        email,
+        telefone: document.getElementById('telefone').value.trim(),
+        faixa_etaria: document.getElementById('faixa_etaria').value,
+        peso: document.getElementById('peso').value ? parseFloat(document.getElementById('peso').value) : null,
+        altura: document.getElementById('altura').value ? parseFloat(document.getElementById('altura').value) : null,
+        menarca: document.getElementById('menarca').value ? parseInt(document.getElementById('menarca').value) : null,
+        ciclo_regular: cicloRegularSelecionado,
+        duracao_menstruacao: document.getElementById('duracao_menstruacao').value,
+        intensidade_fluxo: document.getElementById('intensidade_fluxo').value,
+        usa_anticoncepcional: usaAnticoncepcionalSelecionado
+      };
+
+      if (senha) dados.senha = senha;
+
+      const saveButton = document.querySelector('.save-button');
+      const originalText = saveButton.textContent;
+      saveButton.textContent = 'Salvando...';
+      saveButton.disabled = true;
+
+      fetch('/api/usuario/atualizar-perfil', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(dados)
+      })
+        .then(res => {
+          if (!res.ok) throw new Error('Erro na resposta do servidor');
+          return res.json();
+        })
+        .then(data => {
+          if (data.success) {
+            mostrarSucesso('Perfil atualizado com sucesso!');
+            document.getElementById('senha').value = '';
+            document.getElementById('confirmar_senha').value = '';
+            atualizarLocalStorage();
+            carregarNomeUsuario();
+          } else mostrarErro(data.message || 'Erro ao atualizar perfil');
+        })
+        .catch(err => mostrarErro('Erro ao atualizar perfil: ' + err.message))
+        .finally(() => {
+          saveButton.textContent = originalText;
+          saveButton.disabled = false;
+        });
+    }
+
+    function atualizarLocalStorage() {
+      const faixaEtaria = document.getElementById('faixa_etaria').value;
+      const peso = document.getElementById('peso').value;
+      const altura = document.getElementById('altura').value;
+      const menarca = document.getElementById('menarca').value;
+      const duracaoMenstruacao = document.getElementById('duracao_menstruacao').value;
+      const intensidadeFluxo = document.getElementById('intensidade_fluxo').value;
+
+      if (faixaEtaria) localStorage.setItem('faixa_etaria', faixaEtaria);
+      if (peso) localStorage.setItem('peso', peso);
+      if (altura) localStorage.setItem('altura', altura);
+      if (menarca) localStorage.setItem('menarca', menarca);
+      if (cicloRegularSelecionado !== null) localStorage.setItem('ciclo_regular', cicloRegularSelecionado);
+      if (duracaoMenstruacao) localStorage.setItem('duracao_menstruacao', duracaoMenstruacao);
+      if (intensidadeFluxo) localStorage.setItem('intensidade_fluxo', intensidadeFluxo);
+      if (usaAnticoncepcionalSelecionado !== null) localStorage.setItem('usa_anticoncepcional', usaAnticoncepcionalSelecionado);
+    }
+
+    function mostrarSucesso(mensagem) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Sucesso!',
+        text: mensagem,
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#b56cff',
+        background: '#fff0f7',
+        color: '#4a245e'
+      });
+    }
+
+    function mostrarErro(mensagem) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Ops...',
+        text: mensagem,
+        confirmButtonText: 'Entendi',
+        confirmButtonColor: '#b56cff',
+        background: '#fff0f7',
+        color: '#4a245e'
+      });
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,456 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  margin: 0;
+  background: #f3f2f7;
+  color: #222;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#sidebar {
+  position: fixed;
+  left: 24px;
+  top: 24px;
+  width: 64px;
+  height: calc(100vh - 48px);
+  background: #fff9b7;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  transition: width 300ms ease, padding 300ms ease, align-items 300ms ease;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+#sidebar:hover {
+  width: 220px;
+  align-items: flex-start;
+  padding-left: 16px;
+}
+
+#sidebar.expanded {
+  width: 220px;
+  align-items: flex-start;
+  padding-left: 16px;
+}
+
+#sidebarToggle {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  z-index: 1002;
+  display: none !important;
+}
+
+#sidebarToggle:focus {
+  outline: 2px solid #7c6cff;
+  border-radius: 4px;
+}
+
+#sidebarToggle img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+#sidebar .logo {
+  margin-top: 8px;
+  margin-bottom: 12px;
+  width: 100%;
+  text-align: center;
+}
+
+#sidebar .logo img {
+  width: 42px;
+  max-height: 42px;
+  object-fit: contain;
+  transition: width 0.3s ease, max-height 0.3s ease;
+}
+
+#sidebar.expanded .logo img,
+#sidebar:hover .logo img {
+  width: 120px;
+  max-height: 48px;
+}
+
+#sidebar.expanded .logo,
+#sidebar:hover .logo {
+  text-align: left;
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 6px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.menu li {
+  list-style: none;
+}
+
+.menu-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  border-radius: 8px;
+  color: #2b2b2b;
+  text-decoration: none;
+  width: 100%;
+  transition: background-color 0.3s;
+}
+
+.menu-link:hover,
+.menu-link:focus {
+  background: rgba(0, 0, 0, 0.03);
+  outline: 2px solid #7c6cff;
+  outline-offset: 2px;
+}
+
+.menu li.active,
+.menu-link.active {
+  background: rgba(124, 108, 255, 0.15);
+  border: 1px solid rgba(124, 108, 255, 0.3);
+}
+
+.menu .icon {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.menu .icon img {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+}
+
+.menu .label {
+  display: none;
+  font-weight: 600;
+}
+
+#sidebar:hover .menu .label,
+#sidebar.expanded .menu .label {
+  display: inline-block;
+}
+
+.menu>li[onclick] {
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  color: #2b2b2b;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: background-color 0.3s;
+}
+
+.menu>li[onclick]:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.main-content {
+  padding: 28px;
+  min-height: 100vh;
+  margin-left: 100px;
+  position: relative;
+}
+
+.topbar-static {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 12px;
+  padding: 10px 0;
+}
+
+.topbar-fixed {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 999;
+  padding: 15px 28px;
+  transition: all 0.3s ease;
+  background: transparent;
+  transform: translateY(-100%);
+}
+
+.topbar-fixed.sticky {
+  transform: translateY(0);
+  padding: 15px 28px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.user-profile.sticky {
+  padding: 10px 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+.user-text .greeting {
+  font-weight: 500;
+  color: #666;
+}
+
+.user-text .name {
+  font-weight: 700;
+}
+
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 998;
+  display: none;
+}
+
+#sidebar.expanded~.sidebar-overlay {
+  display: block;
+}
+
+/* === SEÇÃO DOS CICLOS === */
+
+.cycle-wrapper {
+  text-align: center;
+  margin-top: 5px;
+  padding: 10px;
+  animation: fadeIn 0.8s ease forwards;
+}
+
+.cycle-title {
+  font-size: 32px;
+  font-weight: 800;
+  color: black;
+  margin-bottom: 4px;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);
+}
+
+.cycle-subtitle {
+  font-size: 16px;
+  color: #5a5a5a;
+  margin-bottom: 25px;
+}
+
+.cycle-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 25px;
+  padding-bottom: 30px;
+}
+
+/* === CARD DO CICLO === */
+
+.ciclo-card {
+  background: linear-gradient(135deg, #e0d1ff, #c5a8ff);
+  border-radius: 18px;
+  padding: 20px 18px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.ciclo-card:focus {
+  outline: 2px solid #7c6cff;
+  outline-offset: 2px;
+}
+
+.ciclo-card::before {
+  content: "";
+  position: absolute;
+  width: 110%;
+  height: 110%;
+  top: -20%;
+  left: -20%;
+  background: radial-gradient(circle at top right, rgba(255,255,255,0.5), transparent);
+  opacity: 0.4;
+  transform: rotate(30deg);
+}
+
+.ciclo-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(107, 46, 255, 0.18);
+}
+
+.ciclo-titulo {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: capitalize;
+  color: #08001a;
+  margin-bottom: 6px;
+}
+
+.ciclo-info {
+  font-size: 15px;
+  color: #4a4a4a;
+  margin-bottom: 15px;
+}
+
+/* === BOLINHAS DO CICLO === */
+
+.bolinhas {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 7px;
+}
+
+.bolinha {
+  width: 18px;
+  height: 18px;
+  background: #ffffffaa;
+  border-radius: 50%;
+  backdrop-filter: blur(4px);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  animation: pop 0.3s ease forwards;
+}
+
+.bolinha:hover {
+  transform: scale(1.18);
+}
+
+.bolinha.menstruacao {
+  background: #fff9b7;
+  box-shadow: 0 0 6px rgba(251, 255, 20, 0.6);
+}
+
+/* === MENSAGEM QUANDO NÃO TEM CICLOS === */
+
+.sem-ciclos {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 16px;
+  padding: 20px;
+  background: #e0d1ff;
+  border-radius: 14px;
+  color: #7c6cff;
+}
+
+/* === ANIMAÇÕES === */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pop {
+  0%   { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* === RESPONSIVIDADE === */
+
+@media (max-width: 768px) {
+  #sidebar {
+    width: 56px;
+    left: 12px;
+    top: 12px;
+    height: calc(100vh - 24px);
+  }
+
+  #sidebar.expanded,
+  #sidebar:hover {
+    width: 200px;
+  }
+
+  .main-content {
+    margin-left: 70px;
+    padding: 20px 16px;
+  }
+
+  .topbar-fixed,
+  .topbar-static {
+    padding: 10px 16px;
+  }
+
+  .cycle-list {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+  }
+
+  .cycle-title {
+    font-size: 28px;
+  }
+  
+  .cycle-subtitle {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  #sidebar {
+    width: 50px;
+    left: 8px;
+    top: 8px;
+    height: calc(100vh - 16px);
+  }
+
+  #sidebar.expanded,
+  #sidebar:hover {
+    width: 180px;
+  }
+
+  .main-content {
+    margin-left: 60px;
+    padding: 16px 12px;
+  }
+
+  .cycle-list {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .ciclo-card {
+    padding: 16px 14px;
+  }
+
+  .cycle-title {
+    font-size: 24px;
+  }
+}

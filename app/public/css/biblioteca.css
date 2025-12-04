@@ -1,0 +1,509 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  margin: 0;
+  background: #f3f2f7;
+  color: #222;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#sidebar {
+  position: fixed;
+  left: 24px;
+  top: 24px;
+  width: 64px;
+  height: calc(100vh - 48px);
+  background: #fff9b7;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  transition: width 300ms ease, padding 300ms ease;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+#sidebar:hover {
+  width: 220px;
+  align-items: flex-start;
+  padding-left: 16px;
+}
+
+#sidebar.expanded {
+  width: 220px;
+  align-items: flex-start;
+  padding-left: 16px;
+}
+
+#sidebarToggle {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  z-index: 1002;
+}
+
+#sidebarToggle {
+  display: none !important;
+}
+
+#sidebarToggle img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+#sidebar .logo {
+  margin-top: 8px;
+  margin-bottom: 12px;
+  width: 100%;
+  text-align: center;
+}
+
+#sidebar .logo img {
+  width: 42px;
+  max-height: 42px;
+  object-fit: contain;
+  transition: width 0.3s ease, max-height 0.3s ease;
+}
+
+#sidebar.expanded .logo img,
+#sidebar:hover .logo img {
+  width: 120px;
+  max-height: 48px;
+}
+
+
+#sidebar.expanded .logo,
+#sidebar:hover .logo {
+  text-align: left;
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 6px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.menu li {
+  list-style: none;
+}
+
+.menu-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  border-radius: 8px;
+  color: #2b2b2b;
+  text-decoration: none;
+  width: 100%;
+  transition: background-color 0.3s;
+}
+
+.menu-link:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.menu li.active,
+.menu-link.active {
+  background: rgba(124, 108, 255, 0.15);
+  border: 1px solid rgba(124, 108, 255, 0.3);
+}
+
+.menu .icon {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.menu .icon img {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+}
+
+.menu .label {
+  display: none;
+  font-weight: 600;
+}
+
+#sidebar:hover .menu .label,
+#sidebar.expanded .menu .label {
+  display: inline-block;
+}
+
+.menu>li[onclick] {
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  color: #2b2b2b;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: background-color 0.3s;
+}
+
+.menu>li[onclick]:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.main-content {
+  padding: 28px;
+  min-height: 100vh;
+  margin-left: 100px;
+  position: relative;
+}
+
+.topbar-static {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 12px;
+  padding: 10px 0;
+}
+
+.topbar-fixed {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 999;
+  padding: 15px 28px;
+  transition: all 0.3s ease;
+  background: transparent;
+  transform: translateY(-100%);
+}
+
+.topbar-fixed.sticky {
+  transform: translateY(0);
+  padding: 15px 28px;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.user-profile.sticky {
+  padding: 10px 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+.user-text .greeting {
+  font-weight: 500;
+  color: #666;
+}
+
+.user-text .name {
+  font-weight: 700;
+}
+
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 998;
+  display: none;
+}
+
+#sidebar.expanded~.sidebar-overlay {
+  display: block;
+}
+
+.library-container {
+  width: 95%;
+  max-width: 1600px;
+  min-width: 320px;
+  margin: 8px auto 18px auto;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  overflow: visible;
+  padding: 40px;
+  position: relative;
+}
+
+.library-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.library-header h1 {
+  font-size: 32px;
+  color: #2b2b2b;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.library-header p {
+  color: #7f8c8d;
+  font-size: 16px;
+}
+
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 35px;
+  justify-items: center;
+}
+
+.book-card {
+  background: #e0d1ff;
+  border-radius: 12px;
+  padding: 35px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  width: 100%;
+  max-width: 100%;
+  border: 1px solid #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.book-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.book-card h3 {
+  color: #2b2b2b;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.3;
+  flex-grow: 0;
+}
+
+.book-card p {
+  color: #7f8c8d;
+  line-height: 1.6;
+  margin-bottom: 25px;
+  font-size: 16px;
+  flex-grow: 1;
+}
+
+.read-more {
+  display: inline-block;
+  color: #7c6cff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 12px 24px;
+  border: 2px solid #7c6cff;
+  border-radius: 8px;
+  transition: all 0.3s;
+  background: transparent;
+  text-align: center;
+  flex-grow: 0;
+}
+
+.read-more:hover {
+  background: #7c6cff;
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* ATUALIZE AS MEDIA QUERIES EXISTENTES: */
+@media (max-width: 900px) {
+  .main-content {
+    margin-left: 80px;
+    padding: 20px;
+  }
+
+  .library-container {
+    width: 95%;
+    padding: 30px;
+  }
+
+  .books-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .book-card {
+    padding: 25px;
+    max-width: 100%;
+  }
+
+  #sidebar {
+    left: 10px;
+    top: 10px;
+    width: 56px;
+    height: calc(100vh - 20px);
+  }
+  
+  #sidebar:hover {
+    width: 56px;
+    align-items: center;
+    padding-left: 8px;
+  }
+  
+  #sidebar.expanded {
+    width: 220px;
+    align-items: flex-start;
+    padding-left: 16px;
+  }
+
+  .topbar-fixed.sticky {
+    padding: 15px 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 70px;
+    padding: 15px;
+  }
+
+  #sidebar {
+    left: 8px;
+    top: 8px;
+    width: 50px;
+    height: calc(100vh - 16px);
+  }
+  
+  #sidebar.expanded {
+    left: 8px;
+    width: 200px;
+  }
+
+  .library-container {
+    width: 100%;
+    padding: 20px;
+    margin: 5px auto 15px auto;
+  }
+
+  .book-card {
+    padding: 20px;
+  }
+
+  .book-card h3 {
+    font-size: 20px;
+  }
+
+  .topbar-fixed.sticky {
+    padding: 12px 15px;
+  }
+  
+  .library-header h1 {
+    font-size: 28px;
+  }
+  
+  .library-header p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    margin-left: 60px;
+    padding: 12px;
+  }
+  
+  #sidebar {
+    width: 46px;
+    left: 6px;
+    top: 6px;
+    height: calc(100vh - 12px);
+  }
+  
+  #sidebar.expanded {
+    width: 180px;
+  }
+
+  .books-grid {
+    gap: 18px;
+  }
+
+  .book-card {
+    padding: 18px 15px;
+  }
+
+  .book-card h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+
+  .book-card p {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  .read-more {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+  
+  .library-header h1 {
+    font-size: 24px;
+  }
+  
+  .library-header p {
+    font-size: 13px;
+  }
+}
+
+/* ADICIONE ESTA MEDIA QUERY PARA TELAS MUITO PEQUENAS */
+@media (max-width: 360px) {
+  .main-content {
+    margin-left: 55px;
+    padding: 10px;
+  }
+  
+  #sidebar {
+    width: 42px;
+    left: 5px;
+    top: 5px;
+    height: calc(100vh - 10px);
+  }
+  
+  #sidebar.expanded {
+    width: 170px;
+  }
+  
+  .book-card {
+    padding: 15px 12px;
+  }
+  
+  .book-card h3 {
+    font-size: 17px;
+  }
+}

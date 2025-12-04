@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Faixa Etária</title>
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <link rel="stylesheet" href="/css/perguntas.css">
+</head>
+
+<body>
+  <h2>Qual sua faixa etária?</h2>
+  <div class="selecao">
+    <button onclick="salvar('10-16')">10 à 16</button>
+    <button onclick="salvar('17-25')">17 à 25</button>
+    <button onclick="salvar('26-35')">26 à 35</button>
+    <button onclick="salvar('36-45')">36 à 45</button>
+    <button onclick="salvar('45+')">45 ou mais</button>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const usuarioId = params.get("usuario_id");
+
+    function salvar(faixa) {
+      localStorage.setItem('usuario_id', usuarioId);
+      localStorage.setItem('faixa_etaria', faixa);
+      window.location.href = 'pergunta2.html?usuario_id=' + usuarioId;
+    }
+  </script>
+</body>
+
+</html>

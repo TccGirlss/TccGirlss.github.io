@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro</title>
+  <link rel="stylesheet" href="/css/registro.css">
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="left">
+      <img src="/img/logo.png" alt="Logo">
+      <h1>Junte-se a nós!</h1>
+      <p> Monitore seu ciclo, entenda seu corpo e cuide da sua saúde todos os dias.</p>
+    </div>
+
+    <div class="right">
+      <h2>CADASTRE-SE</h2>
+      <p>Já possui uma conta? <a href="/login">ENTRAR</a></p>
+
+      <% if (errosValidacao.length> 0) { %>
+        <div class="alerta-erro">
+          <i class="fa fa-exclamation-circle"></i>
+          <span>
+            <%= errosValidacao[0].msg %>
+          </span>
+        </div>
+        <% } %>
+
+
+          <form action="/registro" method="post">
+            <div class="form-group">
+              <input type="text" name="nome" placeholder="Nome" value="<%= usuario.nome %>">
+            </div>
+            <div class="form-group">
+              <input type="email" name="email" placeholder="Email" value="<%= usuario.email %>">
+            </div>
+            <div class="form-group">
+              <input type="password" name="senha" placeholder="Senha" required minlength="6">
+            </div>
+            <button type="submit">Cadastrar</button>
+            <p style="font-size: 0.8rem; text-align: center; color: #555; margin-top: 15px; margin-bottom: 5px;">
+              Ao se cadastrar, você concorda com nossos
+              <a href="/seguranca/termos.html">Termos de Uso</a>.
+            </p>
+
+            <div class="divider">
+              <span>ou entre de outra forma</span>
+            </div>
+
+            <div id="googleButtonDiv"></div>
+
+            <script src="https://accounts.google.com/gsi/client" async defer></script>
+            <script>
+              function handleCredentialResponse(response) {
+                fetch('/auth/google', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({ credential: response.credential })
+                })
+                  .then(res => res.json())
+                  .then(data => {
+                    if (data.sucesso) {
+                      window.location.href = data.redirecionarPara;
+                    } else {
+                      alert(data.mensagem || 'Erro ao fazer login com Google');
+                    }
+                  })
+
+                  .catch(err => {
+                    console.error(err);
+                    alert('Erro de rede ao fazer login com Google');
+                  });
+              }
+
+              window.onload = function () {
+                google.accounts.id.initialize({
+                  client_id: '1065660492249-ufuke08u7lvoe65p9i2hqsb9ci021gpu.apps.googleusercontent.com',
+                  callback: handleCredentialResponse
+                });
+
+                google.accounts.id.renderButton(
+                  document.getElementById("googleButtonDiv"),
+                  { theme: "outline", size: "large", text: "signup_with" }
+                );
+
+                google.accounts.id.prompt();
+              }
+            </script>
+
+          </form>
+    </div>
+  </div>
+
+
+</body>
+
+</html>

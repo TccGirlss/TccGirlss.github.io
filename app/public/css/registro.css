@@ -1,0 +1,300 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background: url('/img/fundo.png') no-repeat left center;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
+    min-height: 100vh;
+}
+
+.left {
+    flex: 1;
+    padding: 20px;
+}
+
+.left img {
+    width: 150px;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.left h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.left p {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+
+.right {
+    flex: 1;
+    background: #e3d3fc;
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    transform: translateX(-60px);
+}
+
+.right h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+
+.right p {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 0.9rem;
+}
+
+.right p a {
+    color: blue;
+    text-decoration: none;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background: #fff176;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+}
+
+button:hover {
+    background: #ffeb3b;
+}
+
+ul {
+    color: red;
+    margin-bottom: 15px;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #555;
+    font-size: 0.9rem;
+    margin: 25px 0 15px;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #ccc;
+}
+
+.divider:not(:empty)::before {
+    margin-right: 0.75em;
+}
+
+.divider:not(:empty)::after {
+    margin-left: 0.75em;
+}
+
+#googleButtonDiv {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.alerta-erro {
+    background-color: #ffe5e5;
+    color: #d8000c;
+    border: 1px solid #ffbaba;
+    padding: 12px 18px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: slideDown 0.4s ease;
+    box-shadow: 0 3px 8px rgba(255, 0, 0, 0.15);
+    font-weight: 500;
+}
+
+.alerta-erro i {
+    font-size: 1.2rem;
+}
+
+.forgot-link {
+  font-size: 14px;
+  color: blue;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.forgot-link:hover {
+  color: #0202ad;
+  text-decoration: underline;
+}
+
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 1024px) {
+  .container {
+    flex-direction: column;
+    padding: 30px 20px;
+    justify-content: center;
+  }
+  
+  .right {
+    transform: none;
+    max-width: 450px;
+    width: 100%;
+    margin-top: 30px;
+  }
+  
+  .left {
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    background-size: cover;
+  }
+  
+  .container {
+    padding: 20px 15px;
+  }
+  
+  .left h1 {
+    font-size: 2rem;
+  }
+  
+  .left p {
+    font-size: 0.95rem;
+  }
+  
+  .right {
+    padding: 30px;
+  }
+  
+  .right h2 {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    background-position: left;
+  }
+  
+  .container {
+    padding: 15px 12px;
+  }
+  
+  .left img {
+    width: 120px;
+    margin-bottom: 15px;
+  }
+  
+  .left h1 {
+    font-size: 1.7rem;
+    margin-bottom: 8px;
+  }
+  
+  .left p {
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+  }
+  
+  .right {
+    padding: 25px 20px;
+    margin-top: 20px;
+  }
+  
+  .right h2 {
+    font-size: 1.3rem;
+  }
+  
+  .right p {
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+  }
+  
+  .form-group input {
+    padding: 11px;
+    font-size: 15px;
+  }
+  
+  button {
+    padding: 11px;
+    font-size: 15px;
+  }
+  
+  .alerta-erro {
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+  
+  .forgot-link {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    padding: 12px 10px;
+  }
+  
+  .left img {
+    width: 100px;
+  }
+  
+  .left h1 {
+    font-size: 1.5rem;
+  }
+  
+  .right {
+    padding: 20px 16px;
+  }
+  
+  .form-group input {
+    padding: 10px;
+  }
+}

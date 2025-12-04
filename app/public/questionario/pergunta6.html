@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fluxo</title>
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <link rel="stylesheet" href="/css/perguntas.css">
+</head>
+
+<body>
+
+  <h2>Intensidade do seu fluxo</h2>
+  <div class="selecao">
+    <button onclick="responder('leve')">Leve</button>
+    <button onclick="responder('medio')">Médio</button>
+    <button onclick="responder('intenso')">Intenso</button>
+  </div>
+  <br>
+  <div class="btn_back_unique">
+    <button onclick="voltar()">Voltar</button>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const usuarioId = params.get("usuario_id");
+
+    function voltar() {
+      window.location.href = 'pergunta5.html?usuario_id=' + usuarioId;
+    }
+
+    function responder(valor) {
+      localStorage.setItem('intensidade_fluxo', valor);
+      window.location.href = 'pergunta7.html?usuario_id=' + usuarioId;
+    }
+  </script>
+
+
+</body>
+
+</html>

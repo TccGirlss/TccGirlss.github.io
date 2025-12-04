@@ -1,0 +1,62 @@
+.cycle-alert {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #fff;
+  color: #333;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  max-width: 300px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.4s ease;
+  z-index: 9999;
+  font-family: 'Poppins', sans-serif;
+}
+
+.cycle-alert.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cycle-alert-content {
+  position: relative;
+}
+
+.cycle-alert-content h3 {
+  margin: 0 0 10px;
+  color: #7c6cff;
+}
+
+.cycle-alert-content p {
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.alert-btn {
+  background: #7c6cff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.alert-btn:hover {
+  background: #7c6cff;
+}
+
+.alert-close {
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  color: #888;
+}
+
+.alert-close:hover {
+  color: #333;
+}

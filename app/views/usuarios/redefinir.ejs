@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Redefinir senha</title>
+  <link rel="stylesheet" href="/css/recuperarsenha.css">
+  <link rel="stylesheet" href="/css/mensagens.css">
+</head>
+
+<body>
+  <%- include('mensagem', { mensagem, erro, aviso: typeof aviso !=='undefined' ? aviso : null }) %>
+
+    <form method="POST" action="/redefinir/<%= token %>">
+      <label>Nova senha:</label><br>
+      <input type="password" name="senha" placeholder="Senha" required minlength="6">
+      <button type="submit">Salvar nova senha</button>
+      <a href="/login">Voltar ao login</a>
+    </form>
+</body>
+
+</html>

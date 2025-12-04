@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enviando respostas...</title>
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <style>
+    body {
+      background: linear-gradient(135deg, #f6f0fa, #fdfbff);
+      color: #5b3d8c;
+      font-family: "Poppins", sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+
+    h2 {
+      font-weight: 600;
+      font-size: 1.5rem;
+      margin-top: 20px;
+      color: #6a3fa0;
+      animation: fadeIn 1s ease;
+    }
+
+    .loader {
+      border: 6px solid #e0d4f3;
+      border-top: 6px solid #a678e2;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 15px;
+    }
+
+    p {
+      color: #7c5cb0;
+      font-size: 0.95rem;
+      margin-top: 10px;
+      animation: fadeIn 1.2s ease;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(5px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="loader"></div>
+  <h2>Enviando suas respostas...</h2>
+  <p>Aguarde um momentinho, estamos salvando suas informações</p>
+
+  <script>
+    const usuario_id = localStorage.getItem('usuario_id');
+
+    const dados = {
+      usuario_id,
+      faixa_etaria: localStorage.getItem('faixa_etaria'),
+      peso: parseFloat(localStorage.getItem('peso')),
+      altura: parseFloat(localStorage.getItem('altura')),
+      menarca: parseInt(localStorage.getItem('menarca')),
+      ciclo_regular: localStorage.getItem('ciclo_regular') === 'true',
+      duracao_menstruacao: localStorage.getItem('duracao_menstruacao'),
+      intensidade_fluxo: localStorage.getItem('intensidade_fluxo'),
+      usa_anticoncepcional: localStorage.getItem('usa_anticoncepcional') === 'true',
+      sintomas: localStorage.getItem('sintomas')
+    };
+
+    fetch('/api/questionario', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dados)
+    })
+      .then(res => res.json())
+      .then(() => fetch('/api/marcarQuestionarioRespondido', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ usuario_id })
+      }))
+      .then(() => {
+        window.location.href = '/inicio';
+      })
+      .catch(() => {
+        alert("Erro ao salvar respostas. Tente novamente.");
+      });
+  </script>
+</body>
+
+</html>
