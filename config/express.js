@@ -8,32 +8,27 @@ var path = require('path');
 module.exports = function () {
   var app = express();
 
-  // View engine
   app.set('view engine', 'ejs');
   app.set('views', path.join(__dirname, '../app/views'));
 
-  // Arquivos estáticos
   app.use(express.static(path.join(__dirname, '../app/public')));
 
-  // Body Parser
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(express.json());
 
-  // Validator
   app.use(expressValidator());
 
-  // Session usando variável de ambiente
   app.use(session({
-    secret: process.env.SESSION_SECRET, // ← vem do .env carregado no app.js
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false
   }));
 
-  // Carregar rotas e infraestrutura
 load('infra', { cwd: 'app' })
   .then('routes')
   .into(app);
 
   return app;
 };
+
 
