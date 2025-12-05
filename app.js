@@ -1,41 +1,31 @@
-// Carregar variáveis do .env
+// app.js
 require('dotenv').config();
 
-// Importa o express e cria a aplicação
-var app = require('./config/express')();
+const express = require('./config/express')();
+const connectMYSQL = require('./app/infra/connectionFactory');
 
-// Rotas existentes
-require('./app/routes/usuarios')(app);
-require('./app/routes/questionario')(app);
-require('./app/routes/duvidas')(app);
+// Rotas
+require('./app/routes/usuarios')(express);
+require('./app/routes/questionario')(express);
+require('./app/routes/duvidas')(express);
 
-// ROTA DE TESTE PARA O BANCO
-app.get('/test-db', (req, res) => {
-    const mysql = require('mysql');
-    const connection = mysql.createConnection({
-        host: process.env.MYSQLHOST,
-        user: process.env.MYSQLUSER,
-        password: process.env.MYSQLPASSWORD,
-        database: process.env.MYSQLDATABASE,
-        port: process.env.MYSQLPORT
-    });
+// Rota de teste do banco
+express.get('/test-db', (req, res) => {
+  const connection = connectMYSQL();
 
-    connection.connect(err => {
-        if (err) {
-            console.error('Erro na conexão com o banco de dados:', err);
-            return res.status(500).json({ error: 'Erro na conexão com o banco de dados', details: err });
-        }
-        res.json({ success: 'Conexão com o banco de dados bem-sucedida!' });
-    });
+  connection.connect(err => {
+    if (err) {
+      console.error('Erro na conexão com o banco de dados:', err);
+      return res.status(500).json({ error: 'Erro na conexão com o banco de dados', details: err });
+    }
+    res.json({ success: 'Conexão com o banco de dados bem-sucedida!' });
+  });
 
-    connection.end();
+  connection.end();
 });
 
-// MySQL (opcional, se usado em DAO)
-// ...
-
-// Porta (Render usa process.env.PORT)
+// Porta (Render define process.env.PORT automaticamente)
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
-    console.log(`Servidor Rodando na porta ${port}!`);
+express.listen(port, () => {
+  console.log(`Servidor rodando na porta ${port}!`);
 });
