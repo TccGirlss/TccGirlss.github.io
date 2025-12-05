@@ -1,18 +1,19 @@
 {
   "name": "tcc2",
   "version": "1.0.0",
-  "description": "Site da Empresa",
+  "description": "Site Girlslly",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "Empresa",
-    "Login",
+    "Mulher",
     "Cadastro",
+    "Calendario",
     "Consulta",
-    "Alteração",
-    "Exclusão"
+    "Registro"
   ],
   "author": "Eduarda",
   "license": "ISC",
