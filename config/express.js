@@ -30,9 +30,10 @@ module.exports = function () {
   }));
 
   // Carregar rotas e infraestrutura
-  load('routes', { cwd: 'app' })
-    .then('infra')
-    .into(app);
+load('infra', { cwd: 'app' })
+  .then('routes')
+  .into(app);
 
   return app;
 };
+
