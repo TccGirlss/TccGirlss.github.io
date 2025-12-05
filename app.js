@@ -1,29 +1,29 @@
-// Carregar as variáveis de ambiente a partir do arquivo .env
+// Carregar variáveis do .env
 require('dotenv').config();
 
 // Importa o express e cria a aplicação
 var app = require('./config/express')();
 
-// Requer as rotas da aplicação
+// Rotas
 require('./app/routes/usuarios')(app);
 require('./app/routes/questionario')(app);
 require('./app/routes/duvidas')(app);
 
-// Configura a conexão com o banco de dados MySQL usando variáveis de ambiente
+// MySQL
 var mysql = require('mysql');
 
-// Função para conectar ao MySQL usando as variáveis de ambiente
+// Função para conectar ao MySQL (Railway)
 var connectMYSQL = function () {
     return mysql.createConnection({
-        host: process.env.DB_HOST,           // Usando a variável de ambiente para o host
-        database: process.env.DB_NAME,       // Usando a variável de ambiente para o nome do banco
-        user: process.env.DB_USER,           // Usando a variável de ambiente para o usuário
-        password: process.env.DB_PASSWORD,   // Usando a variável de ambiente para a senha
-        port: process.env.DB_PORT            // Usando a variável de ambiente para a porta
+        host: process.env.DB_HOST,
+        database: process.env.DB_NAME,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        port: process.env.DB_PORT
     });
-}
+};
 
-// Teste de conexão com o banco de dados - Rota de teste para garantir a conectividade
+// Rota de teste → para ver se o Railway está conectando
 app.get('/test-db', (req, res) => {
     const connection = connectMYSQL();
 
@@ -38,10 +38,9 @@ app.get('/test-db', (req, res) => {
     connection.end();
 });
 
-// Obtém a porta do ambiente ou define 3000 como padrão
-const port = process.env.PORT || 3000;  // Usa a porta fornecida pelo Render ou 3000 local
+// Porta (Render usa process.env.PORT)
+const port = process.env.PORT || 3000;
 
-// Inicia o servidor
-app.listen(port, function () {
+app.listen(port, () => {
     console.log(`Servidor Rodando na porta ${port}!`);
 });
