@@ -2,13 +2,14 @@ var mysql = require('mysql');
 
 var connectMYSQL = function () {
     return mysql.createConnection({
-        host: 'localhost',
-        database: 'girlslly',
-        user: 'root',
-        password: ''
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_DATABASE,
+        port: process.env.DB_PORT
     });
 }
 
 module.exports = function () {
-    return connectMYSQL;
+    return connectMYSQL();
 }
