@@ -11,6 +11,7 @@ var connectMYSQL = function () {
 }
 
 module.exports = function () {
-    return connectMYSQL();
+    return connectMYSQL;
 }
+
 
