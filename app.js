@@ -1,15 +1,12 @@
-// app.js
 require('dotenv').config();
 
 const express = require('./config/express')();
 const connectMYSQL = require('./app/infra/connectionFactory');
 
-// Rotas
 require('./app/routes/usuarios')(express);
 require('./app/routes/questionario')(express);
 require('./app/routes/duvidas')(express);
 
-// Rota de teste do banco
 express.get('/test-db', (req, res) => {
   const connection = connectMYSQL();
 
@@ -24,8 +21,8 @@ express.get('/test-db', (req, res) => {
   connection.end();
 });
 
-// Porta (Render define process.env.PORT automaticamente)
 const port = process.env.PORT || 3000;
 express.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}!`);
 });
+
