@@ -103,11 +103,7 @@
         <!-- Os ciclos serão carregados aqui pelo JavaScript -->
       </div>
 
-      <div class="cycle-actions">
-        <button onclick="recarregarCiclos()" class="btn-reload" aria-label="Recarregar ciclos">
-          Recarregar
-        </button>
-      </div>
+  
     </div>
 
   </div>
@@ -132,28 +128,11 @@
           });
         });
     });
-
-    // Função de logout (se não estiver em menu.js)
-    if (typeof logout !== 'function') {
-      window.logout = function() {
-        Swal.fire({
-          title: 'Sair',
-          text: 'Tem certeza que deseja sair?',
-          icon: 'question',
-          showCancelButton: true,
-          confirmButtonText: 'Sim, sair',
-          cancelButtonText: 'Cancelar'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            window.location.href = '/logout';
-          }
-        });
-      };
-    }
   </script>
 
 </body>
 
 
 </html>
+
 
