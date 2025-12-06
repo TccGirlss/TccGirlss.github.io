@@ -10,7 +10,6 @@
   <script src="/js/menu.js"></script>
   
   <script>
-    // Limpar flags anteriores para garantir carregamento fresco
     if (window.ciclosTelaInicializado) {
       console.log("Resetando flags anteriores...");
       delete window.ciclosTelaInicializado;
@@ -113,11 +112,9 @@
 
   </div>
 
-  <!-- Carregar o script de ciclos por último -->
   <script src="/js/ciclotela.js?v=1.1"></script>
 
   <script>
-    // Carregar informações do usuário
     document.addEventListener('DOMContentLoaded', function() {
       fetch('/api/usuario/info')
         .then(res => res.json())
@@ -159,3 +156,4 @@
 
 
 </html>
+
