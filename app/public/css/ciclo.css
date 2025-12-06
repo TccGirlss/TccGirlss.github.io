@@ -253,8 +253,6 @@ body {
   display: block;
 }
 
-/* === SEÇÃO DOS CICLOS === */
-
 .cycle-wrapper {
   text-align: center;
   margin-top: 5px;
@@ -333,8 +331,6 @@ body {
   margin-bottom: 15px;
 }
 
-/* === BOLINHAS DO CICLO === */
-
 .bolinhas {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -360,8 +356,6 @@ body {
   box-shadow: 0 0 6px rgba(251, 255, 20, 0.6);
 }
 
-/* === MENSAGEM QUANDO NÃO TEM CICLOS === */
-
 .sem-ciclos {
   grid-column: 1 / -1;
   text-align: center;
@@ -372,7 +366,13 @@ body {
   color: #7c6cff;
 }
 
-/* === ANIMAÇÕES === */
+.btn-reload{
+  padding: 8px 8px;
+  border-radius: 10px;
+  background-color: #7c6cff;
+  color: #fff;
+  border: none;
+}
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
@@ -383,8 +383,6 @@ body {
   0%   { transform: scale(0.5); opacity: 0; }
   100% { transform: scale(1); opacity: 1; }
 }
-
-/* === RESPONSIVIDADE === */
 
 @media (max-width: 768px) {
   #sidebar {
@@ -453,4 +451,5 @@ body {
   .cycle-title {
     font-size: 24px;
   }
+
 }
