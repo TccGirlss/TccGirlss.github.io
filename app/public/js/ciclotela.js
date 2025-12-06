@@ -1,4 +1,3 @@
-// Verificar se já foi carregado para evitar duplicação
 if (!window.ciclosTelaInicializado) {
   window.ciclosTelaInicializado = true;
   
@@ -15,7 +14,6 @@ if (!window.ciclosTelaInicializado) {
         return;
       }
 
-      // Limpar container ANTES de fazer a requisição
       container.innerHTML = '<div class="carregando-container"><p class="carregando">Carregando seus ciclos...</p></div>';
 
       const res = await fetch("/api/ciclo/lista");
@@ -27,7 +25,6 @@ if (!window.ciclosTelaInicializado) {
       const ciclos = await res.json();
       console.log(`Recebidos ${ciclos ? ciclos.length : 0} ciclos da API`);
 
-      // Limpar container completamente
       container.innerHTML = "";
 
       if (!ciclos || !ciclos.length || ciclos.length === 0) {
@@ -43,14 +40,11 @@ if (!window.ciclosTelaInicializado) {
         return;
       }
 
-      // Limitar a quantidade de ciclos exibidos para evitar duplicação
-      const ciclosParaExibir = ciclos.slice(0, 10); // Máximo 10 ciclos
+      const ciclosParaExibir = ciclos.slice(0, 10);
 
-      // Usar DocumentFragment para otimização
       const fragment = document.createDocumentFragment();
 
       ciclosParaExibir.forEach((c, index) => {
-        // Validar dados do ciclo
         if (!c || typeof c.cicloDias !== 'number' || c.cicloDias <= 0) {
           console.warn(`Ciclo ${index} com dados inválidos:`, c);
           return;
@@ -63,14 +57,12 @@ if (!window.ciclosTelaInicializado) {
         const total = c.cicloDias;
         const menstruacao = c.menstruacaoDias || 0;
 
-        // Criar título baseado nos dados disponíveis
         let titulo = c.titulo || `Ciclo ${index + 1}`;
         if (c.dataInicio) {
           const data = new Date(c.dataInicio);
           titulo = `Ciclo de ${data.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })}`;
         }
 
-        // Criar bolinhas
         const bolinhasContainer = document.createElement("div");
         bolinhasContainer.classList.add("bolinhas");
 
@@ -95,7 +87,6 @@ if (!window.ciclosTelaInicializado) {
         fragment.appendChild(card);
       });
 
-      // Adicionar todos os cards de uma vez
       container.appendChild(fragment);
       
       console.log(`${ciclosParaExibir.length} ciclos renderizados com sucesso`);
@@ -119,14 +110,12 @@ if (!window.ciclosTelaInicializado) {
     }
   }
 
-  // Função para recarregar ciclos
   window.recarregarCiclos = function() {
     console.log("Recarregando ciclos...");
-    window.ciclosTelaInicializado = false; // Reset flag
+    window.ciclosTelaInicializado = false;
     carregarCiclos();
   };
 
-  // Esperar o DOM estar pronto
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       console.log("DOM completamente carregado - iniciando carregamento de ciclos");
@@ -134,18 +123,14 @@ if (!window.ciclosTelaInicializado) {
       setTimeout(carregarCiclos, 100);
     });
   } else {
-    // DOM já está carregado
     console.log("DOM já carregado - iniciando carregamento de ciclos");
     setTimeout(carregarCiclos, 100);
   }
 
-  // Adicionar evento de visibilidade da página
   document.addEventListener('visibilitychange', () => {
     if (!document.hidden) {
-      // Página voltou a ficar visível, verificar se precisa atualizar
       console.log("Página ficou visível novamente");
-      // Opcional: recarregar ciclos se necessário
-      // carregarCiclos();
     }
   });
+
 }
